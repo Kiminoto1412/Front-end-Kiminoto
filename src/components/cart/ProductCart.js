@@ -3,18 +3,34 @@ import { useState } from "react";
 function ProductCart({ item, index, setTotalPrice }) {
   const [size, setSize] = useState("S");
   const [quantity, setQuantity] = useState(+"0");
+  const [check, setCheck] = useState(false);
+  const [productPrice, setProductPrice] = useState(0);
 
-  const handleQuantityInput = (e) => {
-    setTotalPrice((prev) => prev - quantity * item.product.price);
+  const handleCheckInput = (e) => {
+    setProductPrice((prev) => prev - quantity * item.product.price);
     setQuantity(e.target.value);
 
-    setTotalPrice((prev) => prev + e.target.value * item.product.price);
+    setProductPrice((prev) => prev + e.target.value * item.product.price);
+  };
+
+  const handleButtonInput = (e) => {
+    if (!check) {
+      setCheck(true);
+
+      setTotalPrice((prev) => prev + productPrice);
+    }
+    if (check) {
+      setCheck(false);
+
+      setTotalPrice((prev) => prev - productPrice);
+    }
+    //   console.log(productPrice)
   };
 
   return (
     <li className="nav-item mb-3" key={index}>
       <div className="d-flex align-items-center">
-        <p className=" blank-box me-3" />
+        <button className=" blank-box me-3" onClick={handleButtonInput} />
         <img
           src={item.product.productPic}
           style={{ width: "150px", height: "150px" }}
@@ -92,10 +108,10 @@ function ProductCart({ item, index, setTotalPrice }) {
             <div>
               <p className="text-muted ms-5 mb-0">Quantity</p>
               <input
-                className="form-control ms-5"
+                className=" ms-5"
                 style={{ width: "40px" }}
                 value={quantity}
-                onChange={handleQuantityInput}
+                onChange={handleCheckInput}
               ></input>
             </div>
           </div>

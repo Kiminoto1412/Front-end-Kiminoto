@@ -26,6 +26,7 @@ function Cart() {
   ];
 
   const [totalPrice , setTotalPrice] = useState(0)
+  console.log(totalPrice)
 
   
   //   const { id } = useParams();
