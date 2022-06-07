@@ -25,8 +25,14 @@ function Cart() {
     },
   ];
 
-  const [totalPrice , setTotalPrice] = useState(0)
-  console.log(totalPrice)
+  const [subTotalPrice , setSubTotalPrice] = useState(0)
+  // console.log(subTotalPrice)
+
+  
+  
+  
+  const express = 40;
+  let totalPrice = subTotalPrice+express;
 
   
   //   const { id } = useParams();
@@ -84,7 +90,7 @@ function Cart() {
             {/* 1 item in cart */}
             {dataFrommOrderItem.map((item, index) => {
               return (
-                <ProductCart item={item} index={index} setTotalPrice={setTotalPrice}/>
+                <ProductCart item={item} index={index} setSubTotalPrice={setSubTotalPrice}/>
               );
             })}
             <div className="black-bottom-header border-2 mt-4 ms-1 me-1 mb-4"></div>
@@ -92,8 +98,15 @@ function Cart() {
           <h5 className="fw-bold">Payment Summary</h5>
           <div className="d-flex justify-content-between">
             <p>Subtotal</p>
+            <p className="me-3">{subTotalPrice} THB</p>
+          </div>
+          <div className="d-flex justify-content-between">
+            <p>Express</p>
+            <p className="me-3">{express} THB</p>
+          </div>
+          <div className="d-flex justify-content-between">
+            <p>Express</p>
             <p className="me-3">{totalPrice} THB</p>
-            <p className="me-3">40 THB</p>
           </div>
 
           <button className="btn btn-dark " type="submit">

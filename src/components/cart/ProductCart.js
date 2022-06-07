@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ProductCart({ item, index, setTotalPrice }) {
+function ProductCart({ item, index, setSubTotalPrice }) {
   const [size, setSize] = useState("S");
   const [quantity, setQuantity] = useState(+"0");
   const [check, setCheck] = useState(false);
@@ -17,12 +17,12 @@ function ProductCart({ item, index, setTotalPrice }) {
     if (!check) {
       setCheck(true);
 
-      setTotalPrice((prev) => prev + productPrice);
+      setSubTotalPrice((prev) => prev + productPrice);
     }
     if (check) {
       setCheck(false);
 
-      setTotalPrice((prev) => prev - productPrice);
+      setSubTotalPrice((prev) => prev - productPrice);
     }
     //   console.log(productPrice)
   };
@@ -30,7 +30,9 @@ function ProductCart({ item, index, setTotalPrice }) {
   return (
     <li className="nav-item mb-3" key={index}>
       <div className="d-flex align-items-center">
-        <button className=" blank-box me-3" onClick={handleButtonInput} />
+        <button className=" blank-box me-3" onClick={handleButtonInput}>
+          {check ? <i class="fa-solid fa-check"></i> : null}
+        </button>
         <img
           src={item.product.productPic}
           style={{ width: "150px", height: "150px" }}
