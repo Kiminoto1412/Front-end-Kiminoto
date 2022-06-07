@@ -90,7 +90,7 @@ function Cart() {
             {/* 1 item in cart */}
             {dataFrommOrderItem.map((item, index) => {
               return (
-                <ProductCart item={item} index={index} setSubTotalPrice={setSubTotalPrice}/>
+                <ProductCart key={index} item={item} index={index}  setSubTotalPrice={setSubTotalPrice}/>
               );
             })}
             <div className="black-bottom-header border-2 mt-4 ms-1 me-1 mb-4"></div>
@@ -108,10 +108,12 @@ function Cart() {
             <p>Express</p>
             <p className="me-3">{totalPrice} THB</p>
           </div>
+            <div className="text-center">
 
           <button className="btn btn-dark " type="submit">
-            Search
+            PROCEED TO CHECKOUT
           </button>
+            </div>
         </div>
       </div>
     </nav>

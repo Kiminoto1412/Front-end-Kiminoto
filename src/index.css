@@ -38,6 +38,10 @@ Link:hover {
   color: black;
 }
 
+Link:active{
+  border-bottom: 1px solid black;
+}
+
 /* HomePage */
 
 .border-top-black {
@@ -45,7 +49,7 @@ Link:hover {
 }
 
 .modal-content {
-  min-height: 600px;
+  min-height: 550px;
 }
 
 .black-bottom-header {

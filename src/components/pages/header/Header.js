@@ -119,11 +119,10 @@ function Header() {
                         <i className="fas fa-search"></i>
                       </Link>
                     </li>
-                    
+
                     <li className="nav-item">
                       <button
-                      className="remove-all-config  m-2"
-                      
+                        className="remove-all-config  m-2"
                         type="button"
                         data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbar"
@@ -133,7 +132,7 @@ function Header() {
                       </button>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/">
+                      <Link className="nav-link" to="/Profile/:customerId">
                         <i className="fas fa-user-circle"></i>
                       </Link>
                     </li>

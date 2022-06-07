@@ -1,34 +1,40 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function ProductCart({ item, index, setSubTotalPrice }) {
   const [size, setSize] = useState("S");
-  const [quantity, setQuantity] = useState(+"0");
+  // const [quantity, setQuantity] = useState(+"0");
   const [check, setCheck] = useState(false);
   const [productPrice, setProductPrice] = useState(0);
+  const quantityEl = useRef(0);
 
   const handleCheckInput = (e) => {
-    setProductPrice((prev) => prev - quantity * item.product.price);
-    setQuantity(e.target.value);
+    // if (!check) {
+      setProductPrice(+quantityEl.current.value * item.product.price);
+    // }
+    // setProductPrice((prev) => prev - quantityEl.value * item.product.price);
+    // setQuantity(quantityEl.value);
 
-    setProductPrice((prev) => prev + e.target.value * item.product.price);
+    // console.log(quantityEl.value)
+    // console.log(quantityEl)
   };
 
   const handleButtonInput = (e) => {
+
     if (!check) {
       setCheck(true);
 
       setSubTotalPrice((prev) => prev + productPrice);
     }
-    if (check) {
+    if (check && +quantityEl.current.value !== 0) {
       setCheck(false);
 
       setSubTotalPrice((prev) => prev - productPrice);
     }
-    //   console.log(productPrice)
+    console.log(productPrice);
   };
 
   return (
-    <li className="nav-item mb-3" key={index}>
+    <li className="nav-item mb-3" >
       <div className="d-flex align-items-center">
         <button className=" blank-box me-3" onClick={handleButtonInput}>
           {check ? <i class="fa-solid fa-check"></i> : null}
@@ -38,10 +44,10 @@ function ProductCart({ item, index, setSubTotalPrice }) {
           style={{ width: "150px", height: "150px" }}
           alt="productPic"
         />
-        <div>
-          <div className="d-flex">
+        <div className="flex-grow-1">
+          <div className="d-flex justify-content-between">
             <p className="ms-3">{item.product.name}</p>
-            <p className="fw-bold ms-5">{item.product.price} THB</p>
+            <p className="fw-bold me-3">{item.product.price} THB</p>
           </div>
           <div className="d-flex">
             <div>
@@ -112,7 +118,7 @@ function ProductCart({ item, index, setSubTotalPrice }) {
               <input
                 className=" ms-5"
                 style={{ width: "40px" }}
-                value={quantity}
+                ref={quantityEl}
                 onChange={handleCheckInput}
               ></input>
             </div>
