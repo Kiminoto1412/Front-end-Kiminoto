@@ -5,7 +5,6 @@ function EditProfile() {
 
   return (
     <>
-      <>
       <h5 className="fw-bold ">Edit Profile</h5>
       {/* <form> */}
       <div className="form-group mt-3">
@@ -54,7 +53,14 @@ function EditProfile() {
           placeholder="confirm password"
         />
       </div>
-    </>
+
+      <div className="row mt-5 p-0">
+      </div>
+      <div className="d-flex justify-content-center">
+        <button type="submit" className="btn btn-dark mt-5 w-25 text-center">
+          Save Profile
+        </button>
+      </div>
     </>
   );
 }

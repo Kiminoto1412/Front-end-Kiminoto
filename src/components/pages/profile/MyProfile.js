@@ -49,6 +49,8 @@ function MyProfile() {
           placeholder="confirm password"
         />
       </div>
+
+      
     </>
   );
 }
