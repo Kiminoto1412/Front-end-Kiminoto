@@ -1,7 +1,11 @@
 
 function MyPurchase() {
+
+  // const data ={order:{id,{}}}
   return (
-    <div>MyPurchase</div>
+    <div>
+      <h5 className="fw-bold mt-5">My Purchase</h5>
+    </div>
   )
 }
 

@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
-function EditProfile() {
+function EditProfile({setFirstName,setLastName,setEmail,setPhoneNumber,setPassword,setConfirmPassword}) {
+  const location = useLocation();
+  // let locatiobVariable =location.pathname
+  // console.log(location.pathname);
+
 
   return (
     <>
@@ -14,6 +18,19 @@ function EditProfile() {
           className="form-control mt-3"
           id="firstName"
           placeholder="first name"
+          // value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+      </div>
+      <div className="form-group mt-3">
+        <label form="lastName">Last Name</label>
+        <input
+          type="text"
+          className="form-control mt-3"
+          id="lastName"
+          placeholder="last name"
+          // value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
         />
       </div>
       <div className="form-group mt-3">
@@ -24,6 +41,8 @@ function EditProfile() {
           id="email"
           aria-describedby="emailHelp"
           placeholder="email"
+          // value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="form-group mt-3">
@@ -33,6 +52,8 @@ function EditProfile() {
           className="form-control mt-3"
           id="tel"
           placeholder="tel"
+          // value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
         />
       </div>
       <div className="form-group mt-3">
@@ -42,6 +63,8 @@ function EditProfile() {
           className="form-control mt-3"
           id="password"
           placeholder="password"
+          // value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       <div className="form-group mt-3">
@@ -51,18 +74,26 @@ function EditProfile() {
           className="form-control mt-3"
           id="confirmPassword"
           placeholder="confirm password"
+          // value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </div>
 
-      <div className="row mt-5 p-0">
-      </div>
-      <div className="d-flex justify-content-center">
-        <button type="submit" className="btn btn-dark mt-5 w-25 text-center">
-          Save Profile
-        </button>
-      </div>
+      {location.pathname === "/Profile/EditProfile/:customerId" ? (
+        <>
+          <div className="row mt-5 p-0"></div>
+          <div className="d-flex justify-content-center">
+            <button
+              type="submit"
+              className="btn btn-dark mt-5 w-25 text-center"
+            >
+              Save Profile
+            </button>
+          </div>
+        </>
+      ) : null}
     </>
   );
 }
 
-export default EditProfile
+export default EditProfile;

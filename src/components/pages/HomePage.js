@@ -1,14 +1,8 @@
-import { Button, Modal } from "react-bootstrap";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import HomePic from "../../assets/images/HomePic.png";
 import CardContainer from "../cardsList/CardContainer";
 
 function HomePage() {
-  const [show, setShow] = useState(true);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   return (
     <>
       <div className="container mt-2">
@@ -38,68 +32,7 @@ function HomePage() {
         <CardContainer />
       </div>
 
-      {/* Modal Log in */}
-      <Modal
-        show={show}
-        centered
-        backdrop={'static'}
-        onHide={handleClose}
-        style={{ minHeight: 600 }}
-        size="s"
-      >
-        <Modal.Header
-          closeButton
-          bsPrefix
-          className="d-flex justify-content-end mt-2 me-3"
-        />
-
-        <div className="container ps-5 pe-5 pt-5">
-          <form>
-            <h1 className="text-center fw-bold">Log In</h1>
-            <div className="mb-3">
-              <label
-                htmlFor="exampleInputEmail1"
-                className="form-label"
-                style={{ fontWeight: "500" }}
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
-            </div>
-            <div className="mb-3">
-              <label
-                htmlFor="exampleInputPassword1"
-                className="form-label"
-                style={{ fontWeight: "500" }}
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="exampleInputPassword1"
-              />
-            </div>
-
-            <button type="submit" className="btn btn-dark w-100 fs-4 p-0 mt-3">
-              LOG IN
-            </button>
-          </form>
-          <div className="mt-5 border-top-black"></div>
-          <div className="d-flex mt-3">
-            <Link to="/sign-up" className="text-decoration-none">
-              <p className="text-primary ">Sign Up</p>
-            </Link>
-            <p className="ms-3">If you don’t have an account.</p>
-          </div>
-        </div>
-      </Modal>
-
+      
     </>
   );
 }

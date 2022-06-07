@@ -1,15 +1,25 @@
-function EditAddress() {
+import { useLocation } from "react-router-dom";
+
+
+function EditAddress({setAddressName ,setAddress,setCity, setDistrict,setPostalCode,setMoreDetails}) {
+
+  const location = useLocation();
+  // let locatiobVariable =location.pathname
+  // console.log(location.pathname);
+
   return (
     <>
       {/* Add a New Address */}
       <h5 className="fw-bold mt-5">Edit Address</h5>
       <div className="form-group mt-3">
-        <label for="addressName">Address Name</label>
+        <label htmlFor="addressName">Address Name</label>
         <input
           type="text"
           className="form-control mt-3"
           id="addressName"
-          placeholder="first name"
+          placeholder="address name"
+          // value={addressName}
+          onChange={(e) => setAddressName(e.target.value)}
         />
       </div>
 
@@ -17,17 +27,21 @@ function EditAddress() {
         <input
           type="text"
           className="form-control mt-5"
-          id="addressFirstName"
+          id="address"
           placeholder="Address  (Room no., Buiding, Street)"
+          // value={address}
+          onChange={(e) => setAddress(e.target.value)}
         />
       </div>
       <div className="form-group mt-3">
-        <label for="city">City</label>
+        <label htmlFor="city">City</label>
         <input
           type="text"
           className="form-control mt-3"
           id="city"
           placeholder="Province"
+          // value={province}
+          onChange={(e) => setCity(e.target.value)}
         />
       </div>
       <div className="form-group mt-3">
@@ -36,6 +50,8 @@ function EditAddress() {
           className="form-control mt-5"
           id="district"
           placeholder="District"
+          // value={district}
+          onChange={(e) => setDistrict(e.target.value)}
         />
       </div>
       <div className="form-group mt-3">
@@ -44,19 +60,25 @@ function EditAddress() {
           className="form-control mt-5"
           id="postalCode"
           placeholder="Postal Code"
+          // value={postalCode}
+          onChange={(e) => setPostalCode(e.target.value)}
         />
       </div>
       <div className="form-group mt-3">
-        <label for="moreDetails">More Details</label>
+        <label htmlFor="moreDetails">More Details</label>
         <textarea
           className="form-control mt-3"
           id="moreDetails"
           rows="7"
+          // value={moreDetails}
+          onChange={(e) => setMoreDetails(e.target.value)}
         ></textarea>
       </div>
 
       {/* </form> */}
-
+      
+      {location.pathname === "/Profile/EditProfile/:customerId" ? (
+        <>
       <div className="row mt-5 p-0">
         <div className="black-bottom-header"></div>
       </div>
@@ -65,6 +87,8 @@ function EditAddress() {
           Save Address
         </button>
       </div>
+      </>
+      ) : null}
     </>
   );
 }
