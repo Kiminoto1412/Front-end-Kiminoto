@@ -14,6 +14,7 @@ import EditAddress from "../components/pages/profile/EditAddress";
 import ChangePassword from "../components/pages/profile/ChangePassword";
 import MyPurchase from "../components/pages/profile/MyPurchase";
 import ModalLoginPage from "../components/pages/ModalLoginPage";
+import EditProductPage from "../components/pages/EditProductPage";
 
 function Router() {
   const { user } = useContext(AuthContext);
@@ -53,25 +54,27 @@ function Router() {
     // </Routes>
 
     <>
-    <Routes>
-      <Route path="/" element={<Header />}>
-        <Route path="" element={<HomePage />} />
-        <Route path="/Brand" element={<BrandPage />} />
-        <Route path="/Product/:productId" element={<ProductPage />} />
-        <Route path="/Profile" element={<SideLayoutProfile />}>
-          <Route path=":customerId" element={<MyProfile />} />
-          <Route path="EditProfile/:customerId" element={<EditProfile />} />
-          <Route path="Address/:customerId" element={<Address />} />
-          <Route path="EditAddress/:customerId" element={<EditAddress />} />
-          <Route
-            path="ChangePassword/:customerId"
-            element={<ChangePassword />}
-          />
-          <Route path="MyPurchase/:customerId" element={<MyPurchase />} />
+      <Routes>
+        <Route path="/" element={<Header />}>
+          <Route path="" element={<HomePage />} />
+          <Route path="/Brand" element={<BrandPage />} />
+          <Route path="/Product/:productId" element={<ProductPage />} />
+          <Route path="/EditProduct/:productId" element={<EditProductPage />} />
+
+          <Route path="/Profile" element={<SideLayoutProfile />}>
+            <Route path=":customerId" element={<MyProfile />} />
+            <Route path="EditProfile/:customerId" element={<EditProfile />} />
+            <Route path="Address/:customerId" element={<Address />} />
+            <Route path="EditAddress/:customerId" element={<EditAddress />} />
+            <Route
+              path="ChangePassword/:customerId"
+              element={<ChangePassword />}
+            />
+            <Route path="MyPurchase/:customerId" element={<MyPurchase />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" />} />
+          {/* ถ้า route ไม่match กับข้างบนให้เข้าอันนี้ คือไปที่root path */}
         </Route>
-        <Route path="*" element={<Navigate to="/" />} />
-        {/* ถ้า route ไม่match กับข้างบนให้เข้าอันนี้ คือไปที่root path */}
-      </Route>
       </Routes>
     </>
   );

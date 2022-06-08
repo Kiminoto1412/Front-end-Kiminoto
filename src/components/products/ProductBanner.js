@@ -4,8 +4,14 @@ import EarthToneShirt1 from "../../assets/images/EarthToneShirt1.jpg";
 import EarthToneShirt2 from "../../assets/images/EarthToneShirt2.jpg";
 import EarthToneShirt3 from "../../assets/images/EarthToneShirt3.jpg";
 import sizeGuidePic from "../../assets/images/sizeGuidePic.png";
+import { Link, useLocation } from "react-router-dom";
 
 function ProductBanner() {
+  const location = useLocation();
+  // let locatiobVariable =location.pathname
+  console.log(location.pathname);
+
+
   const data = [
     { src: EarthToneShirt1 },
     { src: EarthToneShirt2 },
@@ -30,7 +36,7 @@ function ProductBanner() {
   };
   return (
     <>
-      <div className="container">
+      <div className="container mt-5">
         <div className="row">
           {/* Product Pic Banner */}
           <div className="col-7 me-4">
@@ -68,7 +74,28 @@ function ProductBanner() {
           </div>
           {/* Product detail banner */}
           <div className="col-4">
-            <h5>Kiminoto.Official</h5>
+            <div className="d-flex justify-content-between">
+              <h5>Kiminoto.Official</h5>
+              <Link
+                to="/EditProduct/:productId"
+                className={`text-dark text-decoration-none ${
+                  location.pathname === "/Product/EditProduct/:productId"
+                    ? "fw-bold"
+                    : ""
+                }`}
+              >
+                <i
+                  className="fa-solid fa-pencil ms-3"
+                  style={{
+                    fontSize: 12,
+                    color:
+                      location.pathname === "/Profile/EditAddress/:customerId"
+                        ? "black"
+                        : "grey",
+                  }}
+                ></i>
+              </Link>
+            </div>
             <p>Earth tone T-shirts</p>
             <p className="fw-bold">450 THB</p>
             <label htmlFor="head">Color :</label>
@@ -78,6 +105,14 @@ function ProductBanner() {
                 id="head"
                 name="head"
                 defaultValue="#B29385"
+                onChange={(e) => e.target.value}
+              />
+              <input
+                type="color"
+                className="ms-3"
+                id="head"
+                name="head"
+                defaultValue="#D0CFCF"
                 onChange={(e) => e.target.value}
               />
               <input
@@ -136,7 +171,7 @@ function ProductBanner() {
                 />
               ) : null}
             </div>
-            {/* Product Desscription */}
+            {/* Product Description */}
             <div className="border-top-grey ">
               <div className="d-flex justify-content-between align-items-center mt-3">
                 <p className="">Product Description</p>

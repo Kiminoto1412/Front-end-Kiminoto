@@ -1,11 +1,16 @@
 import { useLocation } from "react-router-dom";
 
-
-function EditProfile({setFirstName,setLastName,setEmail,setPhoneNumber,setPassword,setConfirmPassword}) {
+function EditProfile({
+  setFirstName,
+  setLastName,
+  setEmail,
+  setPhoneNumber,
+  setPassword,
+  setConfirmPassword,
+}) {
   const location = useLocation();
   // let locatiobVariable =location.pathname
   // console.log(location.pathname);
-
 
   return (
     <>
