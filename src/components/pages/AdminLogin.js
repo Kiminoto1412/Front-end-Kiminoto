@@ -1,3 +1,5 @@
+
+
 import { Modal } from "react-bootstrap";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
@@ -8,13 +10,13 @@ import { Next } from "react-bootstrap/esm/PageItem";
 import { ErrorContext } from "../../context/ErrorContext";
 import { AuthContext } from "../../context/AuthContext";
 
-function ModalLoginPage() {
+function AdminLogin() {
   const [show, setShow] = useState(true);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login } = useContext(AuthContext);
+  const { loginAdmin } = useContext(AuthContext);
   const { setError } = useContext(ErrorContext);
 
   const handleClose = () => setShow(false);
@@ -23,7 +25,7 @@ function ModalLoginPage() {
   const handleSubmitLogin = async (e) => {
     try {
       e.preventDefault();
-      await login(email, password);
+      await loginAdmin(email, password);
     } catch (err) {
       setError(err.response.data.message);
     }
@@ -75,7 +77,7 @@ function ModalLoginPage() {
 
           <div className="container ps-5 pe-5 pt-5">
             <form>
-              <h1 className="text-center fw-bold">Log In</h1>
+              <h1 className="text-center fw-bold">Log In(Admin)</h1>
               <div className="mb-3">
                 <label
                   htmlFor="exampleInputEmail1"
@@ -130,4 +132,4 @@ function ModalLoginPage() {
   );
 }
 
-export default ModalLoginPage;
+export default AdminLogin;

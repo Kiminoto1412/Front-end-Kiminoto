@@ -10,7 +10,7 @@ function EditAddress({setAddressName ,setAddress,setCity, setDistrict,setPostalC
   return (
     <>
       {/* Add a New Address */}
-      <h5 className="fw-bold mt-5">Edit Address</h5>
+      <h5 className="fw-bold mt-5">Edit Address </h5>
       <div className="form-group mt-3">
         <label htmlFor="addressName">Address Name</label>
         <input

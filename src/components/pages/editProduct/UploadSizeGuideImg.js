@@ -13,7 +13,7 @@ function UploadSizeGuideImg({ sizeGuide, onChange, onDelete }) {
         {sizeGuide ? (
           <>
             <button
-              className="btn-close position-absolute"
+              className="btn-close position-absolute mt-5"
               style={{ top: 6, right: 6 }}
               onClick={(e) => {
                 e.stopPropagation();
@@ -24,13 +24,13 @@ function UploadSizeGuideImg({ sizeGuide, onChange, onDelete }) {
             <img
               src={URL.createObjectURL(sizeGuide)}
               alt="post"
-              className="img-fluid"
+              className="img-fluid w-100 mt-5 mb-5"
             />
           </>
         ) : (
           <img
             src={uploadImagePic}
-            className="me-4 bg-color-blank-image-grey p-5 "
+            className="me-4 bg-color-blank-image-grey p-5 w-100 mt-5 mb-5"
             alt="facebook"
           />
         )}

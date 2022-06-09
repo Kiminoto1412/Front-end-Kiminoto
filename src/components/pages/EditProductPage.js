@@ -7,6 +7,7 @@ import EditSIzeColor from "./product/editProduct/EditSIzeColor";
 import UploadSizeGuideImg from "./editProduct/UploadSizeGuideImg";
 import { updateProduct } from "../../api/apiProduct";
 import { ErrorContext } from "../../context/ErrorContext";
+import EditCategoty from "./product/editProduct/EditCategoty";
 // import { AuthContext } from "../../context/AuthContext";
 
 function EditProductPage() {
@@ -61,11 +62,33 @@ function EditProductPage() {
   const [quantityXXL2, setQuantityXXL2] = useState("");
 
   //ProductDescription
-  const [productDescription,setProductDescription] =useState("")
+  const [productDescription, setProductDescription] = useState("");
+
+  //Category
+  const [category, setCategory] = useState("");
+  //SubCategory
+  const [subCategory, setSubCategory] = useState("");
 
   const [index, setIndex] = useState(0);
 
   const { setError, setTrigger } = useContext(ErrorContext);
+
+  //
+  // useEffect(() => {
+  //   setImage(null);
+  // });
+
+  // const handleClickSavePost = async () => {
+  //   try {
+  //     setLoading(true);
+  //     //ต้องvalidateด้วย ไปเขียนเอง
+  //     await createPost(title, image);
+  //   } catch (err) {
+  //     next(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   //Handle
   const handleSelect = (selectedIndex, e) => {
@@ -124,6 +147,8 @@ function EditProductPage() {
         colorXXL2,
         quantityXXL1,
         quantityXXL2,
+        category,
+        subCategory,
       });
       //   console.log(profilePic)
     } catch (err) {
@@ -190,7 +215,7 @@ function EditProductPage() {
                 })}
               </div>
               <div className="black-bottom-header mt-5"></div>
-              <h5 className="fw-bold ">Product Detail</h5>
+              <h5 className="fw-bold mt-5">Product Detail</h5>
               {/* <form> */}
               <div className="form-group mt-3">
                 <label form="productName " style={{ fontWeight: 500 }}>
@@ -222,89 +247,119 @@ function EditProductPage() {
                 Size
               </div>
               <div className="mt-2">
-                <button className="button-size-grey " onClick={handleSizeS}>
-                  S
-                </button>
-                <button
-                  className="button-size-grey ms-2 "
-                  onClick={handleSizeM}
-                >
-                  M
-                </button>
-                <button className="button-size-grey ms-2" onClick={handleSizeL}>
-                  L
-                </button>
-                <button
-                  className="button-size-grey ms-2"
-                  onClick={handleSizeXL}
-                >
-                  XL
-                </button>
-                <button
-                  className="button-size-grey ms-2"
-                  onClick={handleSizeXXL}
-                >
-                  XXL
-                </button>
+                <div className="row">
+                  <div className="col-2">
+                    <button
+                      type="radio"
+                      className="button-size-grey "
+                      onClick={handleSizeS}
+                    >
+                      S
+                    </button>
+                  </div>
+
+                  <div className="col-2">
+                    <button
+                      type="radio"
+                      className="button-size-grey  "
+                      onClick={handleSizeM}
+                    >
+                      M
+                    </button>
+                  </div>
+
+                  <div className="col-2">
+                    <button
+                      type="radio"
+                      className="button-size-grey "
+                      onClick={handleSizeL}
+                    >
+                      L
+                    </button>
+                  </div>
+
+                  <div className="col-2">
+                    <button
+                      type="radio"
+                      className="button-size-grey "
+                      onClick={handleSizeXL}
+                    >
+                      XL
+                    </button>
+                  </div>
+
+                  <div className="col-2">
+                    <button
+                      type="radio"
+                      className="button-size-grey "
+                      onClick={handleSizeXXL}
+                    >
+                      XXL
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {/* colorS */}
-              {sizeS ? (
-                <EditSIzeColor
-                  sizeS={sizeS}
-                  setColorS1={setColorS1}
-                  setColorS2={setColorS2}
-                  setQuantityS1={setQuantityS1}
-                  setQuantityS2={setQuantityS2}
-                />
-              ) : null}
+              <div className="row">
+                <div className="col-2">
+                  <EditSIzeColor
+                    sizeS={sizeS}
+                    setColorS1={setColorS1}
+                    setColorS2={setColorS2}
+                    setQuantityS1={setQuantityS1}
+                    setQuantityS2={setQuantityS2}
+                  />
+                </div>
 
-              {/* colorM */}
-              {sizeM ? (
-                <EditSIzeColor
-                  sizeM={sizeM}
-                  setColorM1={setColorM1}
-                  setColorM2={setColorM2}
-                  setQuantityM1={setQuantityM1}
-                  setQuantityM2={setQuantityM2}
-                />
-              ) : null}
+                {/* colorM */}
+                <div className="col-2">
+                  <EditSIzeColor
+                    sizeM={sizeM}
+                    setColorM1={setColorM1}
+                    setColorM2={setColorM2}
+                    setQuantityM1={setQuantityM1}
+                    setQuantityM2={setQuantityM2}
+                  />
+                </div>
 
-              {/* colorL */}
-              {sizeL ? (
-                <EditSIzeColor
-                  sizeL={sizeL}
-                  setColorL1={setColorL1}
-                  setColorL2={setColorL2}
-                  setQuantityL1={setQuantityL1}
-                  setQuantityL2={setQuantityL2}
-                />
-              ) : null}
+                {/* colorL */}
+                <div className="col-2">
+                  <EditSIzeColor
+                    sizeL={sizeL}
+                    setColorL1={setColorL1}
+                    setColorL2={setColorL2}
+                    setQuantityL1={setQuantityL1}
+                    setQuantityL2={setQuantityL2}
+                  />
+                </div>
 
-              {/* colorXL */}
-              {sizeXL ? (
-                <EditSIzeColor
-                  sizeXL={sizeXL}
-                  setColorXL1={setColorXL1}
-                  setColorXL2={setColorXL2}
-                  setQuantityXL1={setQuantityXL1}
-                  setQuantityXL2={setQuantityXL2}
-                />
-              ) : null}
-
-              {/* colorXXL */}
-              {sizeXXL ? (
-                <EditSIzeColor
-                  sizeXXL={sizeXXL}
-                  setColorXXL1={setColorXXL1}
-                  setColorXXL2={setColorXXL2}
-                  setQuantityXXL1={setQuantityXXL1}
-                  setQuantityXXL2={setQuantityXXL2}
-                />
-              ) : null}
+                {/* colorXL */}
+                <div className="col-2">
+                  <EditSIzeColor
+                    sizeXL={sizeXL}
+                    setColorXL1={setColorXL1}
+                    setColorXL2={setColorXL2}
+                    setQuantityXL1={setQuantityXL1}
+                    setQuantityXL2={setQuantityXL2}
+                  />
+                </div>
+                {/* colorXXL */}
+                <div className="col-2">
+                  <EditSIzeColor
+                    sizeXXL={sizeXXL}
+                    setColorXXL1={setColorXXL1}
+                    setColorXXL2={setColorXXL2}
+                    setQuantityXXL1={setQuantityXXL1}
+                    setQuantityXXL2={setQuantityXXL2}
+                  />
+                </div>
+              </div>
 
               {/* Upload Image SizeGuide */}
-              <div>
+              <div className="row">
+                <div className="col-12">
+
                 <UploadSizeGuideImg
                   sizeGuide={sizeGuide}
                   // ถ้า sizeGuide ยังไม่มีค่า จะเป้น null ถ้ากดcancel เป็น undefined
@@ -314,13 +369,14 @@ function EditProductPage() {
                     }
                   }}
                   onDelete={() => setSizeGuide(null)}
-                />
+                  />
+                  </div>
               </div>
 
               {/* Product Description */}
               <div className="form-group mt-3">
                 <label form="productDescription " style={{ fontWeight: 500 }}>
-                Product Description
+                  Product Description
                 </label>
                 <input
                   type="text"
@@ -331,6 +387,22 @@ function EditProductPage() {
                 />
               </div>
 
+              {/* Category and SubCat radio button */}
+              <EditCategoty
+                category={category}
+                setCategory={setCategory}
+                setSubCategory={setSubCategory}
+              />
+              {/*  */}
+
+              <div className="d-flex justify-content-center mt-5">
+                <button
+                  type="submit"
+                  className="btn btn-dark mt-5 mb-5 w-50 text-center"
+                >
+                  Create Product
+                </button>
+              </div>
             </div>
           </div>
         </form>
