@@ -3,12 +3,12 @@
 import { Modal } from "react-bootstrap";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import HomePic from "../../assets/images/HomePic.png";
-import CardContainer from "../cardsList/CardContainer";
-import axios from "../../config/axios";
+import HomePic from "../../../assets/images/HomePic.png";
+import CardContainer from "../../cardsList/CardContainer";
+import axios from "../../../config/axios";
 import { Next } from "react-bootstrap/esm/PageItem";
-import { ErrorContext } from "../../context/ErrorContext";
-import { AuthContext } from "../../context/AuthContext";
+import { ErrorContext } from "../../../context/ErrorContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 function AdminLogin() {
   const [show, setShow] = useState(true);

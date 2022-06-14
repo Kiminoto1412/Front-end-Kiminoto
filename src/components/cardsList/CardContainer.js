@@ -6,7 +6,6 @@ function CardContainer() {
     <>
       <HeaderCardList />
       <CardRow />
-      <CardRow />
     </>
   );
 }

@@ -13,3 +13,7 @@ export const updateProduct = (title, image) => {
   formData.append("image", image);
   return axios.post("/posts", formData);
 };
+
+export const getProduct = () =>{
+  
+}

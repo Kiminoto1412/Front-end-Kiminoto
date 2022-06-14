@@ -1,8 +1,13 @@
 import { useLocation } from "react-router-dom";
 
-
-function EditAddress({setAddressName ,setAddress,setCity, setDistrict,setPostalCode,setMoreDetails}) {
-
+function EditAddress({
+  setAddressName,
+  setAddress,
+  setCity,
+  setDistrict,
+  setPostalCode,
+  setMoreDetails,
+}) {
   const location = useLocation();
   // let locatiobVariable =location.pathname
   // console.log(location.pathname);
@@ -76,18 +81,21 @@ function EditAddress({setAddressName ,setAddress,setCity, setDistrict,setPostalC
       </div>
 
       {/* </form> */}
-      
-      {location.pathname === "/Profile/EditProfile/:customerId" ? (
+
+      {location.pathname === "/Profile/EditAddress/:customerId" ? (
         <>
-      <div className="row mt-5 p-0">
-        <div className="black-bottom-header"></div>
-      </div>
-      <div className="d-flex justify-content-center">
-        <button type="submit" className="btn btn-dark mt-5 w-25 text-center">
-          Save Address
-        </button>
-      </div>
-      </>
+          <div className="row mt-5 p-0">
+            <div className="black-bottom-header"></div>
+          </div>
+          <div className="d-flex justify-content-center">
+            <button
+              type="submit"
+              className="btn btn-dark mt-5 w-25 text-center"
+            >
+              Save Address
+            </button>
+          </div>
+        </>
       ) : null}
     </>
   );

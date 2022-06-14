@@ -1,13 +1,13 @@
 import { Carousel, Spinner } from "react-bootstrap";
 import { useContext, useState } from "react";
-import EarthToneShirt1 from "../../assets/images/EarthToneShirt1.jpg";
-import EarthToneShirt2 from "../../assets/images/EarthToneShirt2.jpg";
+import EarthToneShirt1 from "../../../assets/images/EarthToneShirt1.jpg";
+import EarthToneShirt2 from "../../../assets/images/EarthToneShirt2.jpg";
 // import sizeGuidePic from "../../assets/images/sizeGuidePic.png";
-import EditSIzeColor from "./product/editProduct/EditSIzeColor";
-import UploadSizeGuideImg from "./editProduct/UploadSizeGuideImg";
-import { updateProduct } from "../../api/apiProduct";
-import { ErrorContext } from "../../context/ErrorContext";
-import EditCategoty from "./product/editProduct/EditCategoty";
+import EditSIzeColor from "../product/editProduct/EditSIzeColor";
+import UploadSizeGuideImg from "../editProduct/UploadSizeGuideImg";
+import { updateProduct } from "../../../api/apiProduct";
+import { ErrorContext } from "../../../context/ErrorContext";
+import EditCategoty from "../product/editProduct/EditCategoty";
 // import { AuthContext } from "../../context/AuthContext";
 
 function EditProductPage() {

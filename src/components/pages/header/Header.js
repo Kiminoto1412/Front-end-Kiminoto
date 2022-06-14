@@ -76,6 +76,11 @@ function Header() {
                             Something else here
                           </Link>
                         </li>
+                        <li>
+                          <Link className="dropdown-item" to="/orderTracking">
+                            Order tracking
+                          </Link>
+                        </li>
                       </ul>
                     </li>
                   </ul>
@@ -148,10 +153,11 @@ function Header() {
           </div>
         </div>
       </nav>
-      <Outlet />
-      <Footer />
-
+      <div className=" body-container" >
+        <Outlet />
+      </div>
       <Cart />
+      <Footer />
     </>
   );
 }

@@ -120,9 +120,9 @@ function Profile() {
 
             {/* </form> */}
           </div>
-          <div className="row mt-5 p-0">
+          {/* <div className="row mt-5 p-0">
             <div className="black-bottom-header"></div>
-          </div>
+          </div> */}
         </div>
       </form>
     </div>

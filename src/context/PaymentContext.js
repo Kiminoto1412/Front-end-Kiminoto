@@ -7,9 +7,9 @@ import {
   setAccessToken,
 } from "../services/localStorage";
 
-const AuthContext = createContext();
+const PaymentContext = createContext();
 
-function AuthContextProvider({ children }) {
+function PaymentContextProvider({ children }) {
   const [user, setUser] = useState(null);
   let navigate = useNavigate();
   const [role, setRole] = useState(null);
@@ -23,9 +23,9 @@ function AuthContextProvider({ children }) {
           setUser(resMe.data.customer || resMe.data.admin);
           setRole(resMe.data.role);
           // console.log(resMe.data.user)
-          // console.log(resMe.data.role);
-          // console.log(role);
-          // console.log(resMe.data.customer);
+          console.log(resMe.data.role);
+          console.log(role);
+          console.log(resMe.data.customer);
 
         }
       } catch (err) {
@@ -88,18 +88,18 @@ function AuthContextProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider
+    <PaymentContext.Provider
       value={{ signUp, user, login, loginAdmin, logout, role }}
     >
       {children}
-    </AuthContext.Provider>
+    </PaymentContext.Provider>
   );
 }
 
 const useAuth = () => {
-  const ctx = useContext(AuthContext);
+  const ctx = useContext(PaymentContext);
   return ctx;
 };
 
-export default AuthContextProvider;
-export { AuthContext, useAuth };
+export default PaymentContextProvider;
+export { PaymentContext, useAuth };

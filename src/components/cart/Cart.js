@@ -110,9 +110,9 @@ function Cart() {
           </div>
             <div className="text-center">
 
-          <button className="btn btn-dark " type="submit">
+          <Link className="btn btn-dark " type="submit" to="/PaymentMethod/Step1">
             PROCEED TO CHECKOUT
-          </button>
+          </Link>
             </div>
         </div>
       </div>

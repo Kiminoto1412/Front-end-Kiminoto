@@ -6,7 +6,7 @@ import line from "../../../assets/images/line.png";
 function Footer() {
   return (
     <footer>
-      <div className="bg-color-footer-grey p-3 mt-5">
+      <div className="bg-color-footer-grey p-3 mt-5 ">
         <div className="row">
           <div className="container">
             <div className="row">

@@ -60,9 +60,7 @@ function SignUp() {
   return (
     <>
       {loading && <Spinner />}
-      <div className="col d-flex justify-content-center black-bottom-header ms-5 me-5 mt-3">
-        <h1>KIMINOTO</h1>
-      </div>
+     
       <div className="container mt-5">
         <form onSubmit={handleSubmitSignUp}>
           <div className="row d-flex">
