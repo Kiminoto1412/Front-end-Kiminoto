@@ -1,15 +1,27 @@
 import { useRef, useState } from "react";
 
-function ProductCart({ item, index, setSubTotalPrice }) {
-  const [size, setSize] = useState("S");
+function ProductCart({
+  item,
+  index,
+  name,
+  price,
+  quantity,
+  productPic,
+  size,
+  setSubTotalPrice
+}) {
+  console.log(JSON.parse(productPic)[0])
+  console.log(size)
+  const [selectedSize, setSelectedSize] = useState(size);
   // const [quantity, setQuantity] = useState(+"0");
   const [check, setCheck] = useState(false);
-  const [productPrice, setProductPrice] = useState(0);
+  const [productPrice, setProductPrice] = useState(price);
+  const [newQuantity , setNewQuantity] = useState(quantity)
   const quantityEl = useRef(0);
 
   const handleCheckInput = (e) => {
     // if (!check) {
-      setProductPrice(+quantityEl.current.value * item.product.price);
+    setProductPrice(+quantityEl.current.value * item.product.price);
     // }
     // setProductPrice((prev) => prev - quantityEl.value * item.product.price);
     // setQuantity(quantityEl.value);
@@ -19,7 +31,6 @@ function ProductCart({ item, index, setSubTotalPrice }) {
   };
 
   const handleButtonInput = (e) => {
-
     if (!check) {
       setCheck(true);
 
@@ -34,20 +45,20 @@ function ProductCart({ item, index, setSubTotalPrice }) {
   };
 
   return (
-    <li className="nav-item mb-3" >
+    <li className="nav-item mb-3">
       <div className="d-flex align-items-center">
         <button className=" blank-box me-3" onClick={handleButtonInput}>
           {check ? <i class="fa-solid fa-check"></i> : null}
         </button>
         <img
-          src={item.product.productPic}
+          src={JSON.parse(productPic)[0]}
           style={{ width: "150px", height: "150px" }}
           alt="productPic"
         />
         <div className="flex-grow-1">
           <div className="d-flex justify-content-between">
-            <p className="ms-3">{item.product.name}</p>
-            <p className="fw-bold me-3">{item.product.price} THB</p>
+            <h5 className="ms-3 fw-bold">{name}</h5>
+            <p className="fw-bold me-3">{price} THB</p>
           </div>
           <div className="d-flex">
             <div>
@@ -60,13 +71,13 @@ function ProductCart({ item, index, setSubTotalPrice }) {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                {size}
+                {selectedSize}
               </div>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
                   <p
                     className="dropdown-item  mb-2 "
-                    onClick={() => setSize("S")}
+                    onClick={() => setSelectedSize("S")}
                   >
                     S
                   </p>
@@ -74,7 +85,7 @@ function ProductCart({ item, index, setSubTotalPrice }) {
                 <li>
                   <p
                     className="dropdown-item mb-2 "
-                    onClick={() => setSize("M")}
+                    onClick={() => setSelectedSize("M")}
                   >
                     M
                   </p>
@@ -82,7 +93,7 @@ function ProductCart({ item, index, setSubTotalPrice }) {
                 <li>
                   <p
                     className="dropdown-item mb-2"
-                    onClick={() => setSize("L")}
+                    onClick={() => setSelectedSize("L")}
                   >
                     L
                   </p>
@@ -90,7 +101,7 @@ function ProductCart({ item, index, setSubTotalPrice }) {
                 <li>
                   <p
                     className="dropdown-item mb-2"
-                    onClick={() => setSize("XL")}
+                    onClick={() => setSelectedSize("XL")}
                   >
                     XL
                   </p>
@@ -98,7 +109,7 @@ function ProductCart({ item, index, setSubTotalPrice }) {
                 <li>
                   <p
                     className="dropdown-item mb-2"
-                    onClick={() => setSize("XXL")}
+                    onClick={() => setSelectedSize("XXL")}
                   >
                     XXL
                   </p>
@@ -106,7 +117,7 @@ function ProductCart({ item, index, setSubTotalPrice }) {
                 <li>
                   <p
                     className="dropdown-item mb-2"
-                    onClick={() => setSize("XXXL")}
+                    onClick={() => setSelectedSize("XXXL")}
                   >
                     XXXL
                   </p>
@@ -115,6 +126,12 @@ function ProductCart({ item, index, setSubTotalPrice }) {
             </div>
             <div>
               <p className="text-muted ms-5 mb-0">Quantity</p>
+              {/* <input
+                className=" ms-5"
+                style={{ width: "40px" }}
+                ref={quantityEl}
+                onChange={handleCheckInput}
+              ></input> */}
               <input
                 className=" ms-5"
                 style={{ width: "40px" }}

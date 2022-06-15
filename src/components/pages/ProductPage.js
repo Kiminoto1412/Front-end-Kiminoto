@@ -1,9 +1,12 @@
-import ProductConatiner from "../products/ProductConatiner"
+import ProductContextProvider from "../../context/ProductContext";
+import ProductConatiner from "../products/ProductConatiner";
 
 function ProductPage() {
   return (
-    <ProductConatiner />
-  )
+    <ProductContextProvider>
+      <ProductConatiner />
+    </ProductContextProvider>
+  );
 }
 
-export default ProductPage
+export default ProductPage;

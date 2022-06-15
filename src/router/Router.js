@@ -38,6 +38,7 @@ function Router() {
             <Route path="" element={<HomePage />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/Brand" element={<BrandPage />} />
+            
             <Route path="/Product/:productId" element={<ProductPage />} />
             {role === "customer" ? (
               <>

@@ -215,3 +215,17 @@ input[type="color"]::-webkit-color-swatch {
   background-color: #F6F6F6;
   padding: 1rem;
 }
+
+.border-round-outside{
+  border: 1px solid #000;
+  border-radius: 50%;
+  background-color: #F6F6F6;
+  padding:5px
+}
+
+.color-round-inside{
+ 
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}

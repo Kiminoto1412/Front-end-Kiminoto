@@ -118,7 +118,7 @@ function ModalLoginPage() {
             <div className="mt-5 border-top-black"></div>
             {/* Sign up for customer */}
             <div className="d-flex mt-3">
-              <Link to="/sign-up/customer" className="text-decoration-none">
+              <Link to="/sign-up" className="text-decoration-none">
                 <p className="text-primary ">Sign Up</p>
               </Link>
               <p className="ms-3">If you don’t have an account.</p>

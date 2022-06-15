@@ -1,22 +1,39 @@
+import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "../../config/axios";
+import { ProductContext } from "../../context/ProductContext";
+import { ErrorContext } from "../../context/ErrorContext";
 
 function ProductBanner() {
   const location = useLocation();
+  let navigate = useNavigate();
   let { productId } = useParams();
 
   const [product, setProduct] = useState([]);
+  const [productOptionIdAr, setProductOptionIdAr] = useState([]);
   const [status, setStatus] = useState("");
   const [quantity, setQuantity] = useState("1");
+  const [colorAr, setColorAr] = useState("");
+  const [color, setColor] = useState("");
+  const [sizeAr, setSizeAr] = useState("");
+  const [size, setSize] = useState("");
+  const [filteredProductOption, setFilteredProductOption] = useState([]);
+  const [productOptionId, setProductOptionId] = useState("");
+
+  const { addToBag } = useContext(ProductContext);
+  const { setError } = useContext(ErrorContext);
 
   useEffect(() => {
     setStatus("pending");
     const fetchProducts = async () => {
       try {
         const res = await axios.get(`/products/${productId}`);
-        setProduct(res.data.product);
+        console.log(res.data.product);
+        if (res.data.product) setProduct(res.data.product);
+        // console.log(product);
+
         setStatus("resolve");
       } catch (err) {
         console.log(err);
@@ -24,21 +41,80 @@ function ProductBanner() {
     };
     fetchProducts();
   }, []);
+  // console.log(product);
 
-  let objProduct = product[0];
-  // console.log(objProduct);
-  // console.log(objProduct.sizeGuide);
-  //  console.log(typeof objProduct)
-  //  console.log(JSON.stringify(objProduct.productPic))
-  //  console.log(typeof JSON.stringify(objProduct.productPic))
-  //  console.log(JSON.parse(JSON.stringify(objProduct.productPic)))
-  //  console.log(typeof JSON.parse(JSON.stringify(objProduct.productPic)))
-  // const parseProductPic = JSON.parse(objProduct.productPic)
-  // console.log(parseProductPic)
-  //  console.log(JSON.parse(objProduct.productPic))
-  //  console.log(typeof JSON.parse(objProduct.productPic))
-  //  let imgProduct = objProduct.productPic
-  //  console.log(imgProduct)
+  useEffect(() => {
+    const fetchColor = async () => {
+      try {
+        const arrayColor = product[0]?.ProductOptions.map((el, idx) => {
+          return el.color;
+        });
+        // console.log(arrayColor)
+        const uniqueArrayColor = [...new Set(arrayColor)];
+        setColorAr(uniqueArrayColor);
+        // console.log(color);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (product.length > 0) {
+      fetchColor();
+    }
+  }, [product]);
+
+  useEffect(() => {
+    const fetchSize = async () => {
+      try {
+        const arrayColor = product[0]?.ProductOptions.map((el, idx) => {
+          return el.size;
+        });
+        // console.log(arrayColor)
+        const uniqueArraySize = [...new Set(arrayColor)];
+        setSizeAr(uniqueArraySize);
+        // console.log(color);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (product.length > 0) {
+      fetchSize();
+    }
+  }, [color]);
+
+  useEffect(() => {
+    const fetchProductOption = async () => {
+      try {
+        const arrayProductOption = product[0]?.ProductOptions;
+
+        // console.log(arrayProductOption);
+        setProductOptionIdAr(arrayProductOption);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (product.length > 0) {
+      fetchProductOption();
+    }
+  }, [color]);
+
+  const handleSubmitAddToBag = async (e) => {
+    try {
+      e.preventDefault();
+
+      // console.log("first")
+      console.log(product);
+      // console.log(quantity);
+      console.log(product[0].ProductOptions);
+
+      await addToBag({
+        productOptionId,
+        quantity,
+      });
+      // navigate("/")
+    } catch (err) {
+      setError(err.response.data.message);
+    }
+  };
 
   const [index, setIndex] = useState(0);
 
@@ -57,12 +133,26 @@ function ProductBanner() {
     setIndex(selectedIndex);
   };
 
+  const handleSelectColor = (colorHex) => {
+    // console.log(colorHex);
+    setColor(colorHex);
+    // console.log(color);
+
+    const filteredProduct = product[0]?.ProductOptions.filter((el) => {
+      return el.color === colorHex;
+    });
+    setFilteredProductOption(filteredProduct);
+  };
+
+  console.log(color);
+  console.log(productOptionId);
+
   if (status === "pending") {
     return <p>Loading</p>;
   }
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmitAddToBag}>
         <div className="container mt-5">
           <div className="row">
             {/* Product Pic Banner */}
@@ -131,40 +221,66 @@ function ProductBanner() {
               <p className="fw-bold">450 THB</p>
               <label htmlFor="head">Color :</label>
               <div className="d-flex ">
-                <input
-                  type="color"
-                  id="head"
-                  name="head"
-                  defaultValue="#B29385"
-                  onChange={(e) => e.target.value}
-                />
-                <input
-                  type="color"
-                  className="ms-3"
-                  id="head"
-                  name="head"
-                  defaultValue="#D0CFCF"
-                  onChange={(e) => e.target.value}
-                />
-                <input
-                  type="color"
-                  className="ms-3"
-                  id="head"
-                  name="head"
-                  defaultValue="#D0CFCF"
-                  onChange={(e) => e.target.value}
-                />
+                {console.log(colorAr)}
+                {colorAr ? (
+                  <>
+                    {colorAr?.map((el, idx) => (
+                      <>
+                        <div
+                          className="d-flex align-items-center me-1 mt-2"
+                          type="button"
+                          id={idx}
+                          onClick={() => handleSelectColor(el)}
+                        >
+                          <div className="border-round-outside">
+                            <div
+                              className="color-round-inside "
+                              style={{ backgroundColor: el }}
+                            ></div>
+                          </div>
+                        </div>
+                      </>
+                    ))}
+                  </>
+                ) : (
+                  <></>
+                )}
+                {/* {color?.map((el, idx) => {
+                  <input
+                    type="color"
+                    id={idx}
+                    name={idx}
+                    defaultValue={el}
+                    onChange={(e) => e.target.value}
+                  />;
+                })} */}
               </div>
               <div className="d-flex mt-3 ">
                 <p className="fw-bold m-0">Size : </p>
                 <p className="ms-1 mb-0">Select a size</p>
               </div>
               <div className="mt-2">
-                <button className="button-size-grey "> S</button>
+                {filteredProductOption.map((el) => {
+                  console.log(el);
+                  return (
+                    <>
+                      <button
+                        className="button-size-grey ms-2 "
+                        onClick={() => setProductOptionId(el.id)}
+                      >
+                        {el.size}
+                      </button>
+                    </>
+                  );
+                })}
+
+                {/* <button className="button-size-grey " disabled={color}>
+                  S
+                </button>
                 <button className="button-size-grey ms-2 "> M</button>
                 <button className="button-size-grey ms-2"> L</button>
                 <button className="button-size-grey ms-2"> XL</button>
-                <button className="button-size-grey ms-2"> XXL</button>
+                <button className="button-size-grey ms-2"> XXL</button> */}
               </div>
               <div className="mt-3 d-flex align-items-center">
                 <button

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ErrorContext } from "../../context/ErrorContext";
@@ -8,6 +9,10 @@ import { Spinner } from "react-bootstrap";
 import UploadImage from "./form/UploadImage";
 
 function SignUp() {
+
+  let navigate = useNavigate();
+  
+  
   //setFirstName={setFirstName} , setLastName={setLastName},setEmail={setEmail} ,setPhoneNumber={setPhoneNumber},setPassword={setPassword},setConfirmPassword={setConfirmPassword}
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -52,6 +57,7 @@ function SignUp() {
         moreDetails,
       });
       console.log(profilePic)
+      navigate("/")
     } catch (err) {
       setError(err.response.data.message);
     }
