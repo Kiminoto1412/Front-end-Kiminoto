@@ -1,33 +1,69 @@
-import { useRef, useState } from "react";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
 
 function ProductCart({
   item,
   index,
+  productOptionId,
   name,
   price,
   quantity,
   productPic,
   size,
-  setSubTotalPrice
+  cartItemId,
+  setSubTotalPrice,
 }) {
-  console.log(JSON.parse(productPic)[0])
-  console.log(size)
+  console.log(JSON.parse(productPic)[0]);
+  console.log(size);
   const [selectedSize, setSelectedSize] = useState(size);
   // const [quantity, setQuantity] = useState(+"0");
   const [check, setCheck] = useState(false);
   const [productPrice, setProductPrice] = useState(price);
-  const [newQuantity , setNewQuantity] = useState(quantity)
+  const [newQuantity, setNewQuantity] = useState(quantity);
   const quantityEl = useRef(0);
 
-  const handleCheckInput = (e) => {
+  // console.log(quantity)
+  console.log(productOptionId);
+
+  // แตกกกกกกก
+  // useEffect(() => {
+  //   const updateQuantity = async () => {
+  //     try {
+  //       await axios.patch("/cartItems", {
+  //         productOptionId,
+  //         quantity: newQuantity,
+  //       });
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   if (newQuantity > 0) {
+  //     updateQuantity();
+  //   }
+  // }, [newQuantity]);
+
+  const handleChangeQuantity = (e) => {
+    setNewQuantity(e.target.value);
+    console.log(newQuantity);
     // if (!check) {
-    setProductPrice(+quantityEl.current.value * item.product.price);
+    // setProductPrice(+quantityEl.current.value * price);
+    setProductPrice(newQuantity * price);
+    console.log(productPrice);
     // }
     // setProductPrice((prev) => prev - quantityEl.value * item.product.price);
     // setQuantity(quantityEl.value);
 
     // console.log(quantityEl.value)
     // console.log(quantityEl)
+  };
+
+  const deleteCartItem = async () => {
+    try {
+      await axios.delete("/cartItems/" + cartItemId);
+      window.location.reload(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleButtonInput = (e) => {
@@ -56,6 +92,12 @@ function ProductCart({
           alt="productPic"
         />
         <div className="flex-grow-1">
+          <div className="text-end mb-2 p-0">
+            <button onClick={deleteCartItem}>
+
+            <i className="fa-solid fa-xmark"></i>
+            </button>
+          </div>
           <div className="d-flex justify-content-between">
             <h5 className="ms-3 fw-bold">{name}</h5>
             <p className="fw-bold me-3">{price} THB</p>
@@ -135,8 +177,9 @@ function ProductCart({
               <input
                 className=" ms-5"
                 style={{ width: "40px" }}
-                ref={quantityEl}
-                onChange={handleCheckInput}
+                value={newQuantity}
+                // ref={quantityEl}
+                onChange={handleChangeQuantity}
               ></input>
             </div>
           </div>

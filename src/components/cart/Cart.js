@@ -10,13 +10,7 @@ function Cart() {
   const { user } = useContext(AuthContext);
   const [subTotalPrice, setSubTotalPrice] = useState(0);
   const [cartItemArray, setCartItemArray] = useState([]);
-  // const [productName , setProductName] = useState("")
-  // const [size , setSize] = useState("")
-  // const [price , setPrice] = useState("")
-  // const [productPic , setProductPic] = useState("")
-  // const [quantity , setQuantity] = useState(1)
 
-  // console.log(user)
   useEffect(() => {
     const fetchCart = async () => {
       try {
@@ -79,6 +73,8 @@ function Cart() {
                       key={index}
                       item={item}
                       index={index}
+                      cartItemId = {item.id}
+                      productOptionId={item.ProductOption.id}
                       name={item.ProductOption.Product.name}
                       price={item.ProductOption.Product.price}
                       quantity={item.quantity}
