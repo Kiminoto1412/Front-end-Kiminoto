@@ -102,9 +102,9 @@ function ProductBanner() {
       e.preventDefault();
 
       // console.log("first")
-      console.log(product);
+      // console.log(product);
       // console.log(quantity);
-      console.log(product[0].ProductOptions);
+      // console.log(product[0].ProductOptions);
 
       await addToBag({
         productOptionId,

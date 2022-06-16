@@ -29,7 +29,7 @@ import PaymentEditAddressStep1 from "../components/pages/payment/PaymentEditAddr
 function Router() {
   // const { user } = useContext(AuthContext);
   const { role } = useContext(AuthContext);
-  // console.log(role);
+  console.log(role);
   return (
     <Routes>
       {role ? (
@@ -119,30 +119,6 @@ function Router() {
       )}
     </Routes>
 
-    // <>
-    //   <Routes>
-    //     <Route path="/" element={<Header />}>
-    //       <Route path="" element={<HomePage />} />
-    //       <Route path="/Brand" element={<BrandPage />} />
-    //       <Route path="/Product/:productId" element={<ProductPage />} />
-    //       <Route path="/EditProduct/:productId" element={<EditProductPage />} />
-
-    //       <Route path="/Profile" element={<SideLayoutProfile />}>
-    //         <Route path=":customerId" element={<MyProfile />} />
-    //         <Route path="EditProfile/:customerId" element={<EditProfile />} />
-    //         <Route path="Address/:customerId" element={<Address />} />
-    //         <Route path="EditAddress/:customerId" element={<EditAddress />} />
-    //         <Route
-    //           path="ChangePassword/:customerId"
-    //           element={<ChangePassword />}
-    //         />
-    //         <Route path="MyPurchase/:customerId" element={<MyPurchase />} />
-    //       </Route>
-    //       <Route path="*" element={<Navigate to="/" />} />
-    //       {/* ถ้า route ไม่match กับข้างบนให้เข้าอันนี้ คือไปที่root path */}
-    //     </Route>
-    //   </Routes>
-    // </>
   );
 }
 

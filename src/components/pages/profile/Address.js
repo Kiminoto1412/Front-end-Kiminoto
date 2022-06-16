@@ -1,6 +1,20 @@
-import React from "react";
+import axios from "../../../config/axios";
+import { useContext, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
+import { ErrorContext } from "../../../context/ErrorContext";
 
 function Address() {
+
+  let navigate = useNavigate();
+
+  //deconstruct ตาม route
+  const {customerId} = useParams();
+  console.log(customerId)
+
+  const { user } = useContext(AuthContext);
+
+
   return (
     <>
       {/* Add a New Address */}
@@ -11,6 +25,7 @@ function Address() {
           type="text"
           className="form-control mt-3"
           id="addressName"
+          value={user.addressName}
           placeholder="first name"
         />
       </div>
@@ -20,6 +35,7 @@ function Address() {
           type="text"
           className="form-control mt-5"
           id="addressFirstName"
+          value={user.address}
           placeholder="Address  (Room no., Buiding, Street)"
         />
       </div>
@@ -29,6 +45,7 @@ function Address() {
           type="text"
           className="form-control mt-3"
           id="city"
+          value={user.city}
           placeholder="Province"
         />
       </div>
@@ -37,6 +54,7 @@ function Address() {
           type="text"
           className="form-control mt-5"
           id="district"
+          value={user.district}
           placeholder="District"
         />
       </div>
@@ -45,6 +63,7 @@ function Address() {
           type="text"
           className="form-control mt-5"
           id="postalCode"
+          value={user.postalCode}
           placeholder="Postal Code"
         />
       </div>
@@ -53,7 +72,9 @@ function Address() {
         <textarea
           className="form-control mt-3"
           id="moreDetails"
+          value={user.moreDetails}
           rows="7"
+          defaultValue={""}
         ></textarea>
       </div>
 

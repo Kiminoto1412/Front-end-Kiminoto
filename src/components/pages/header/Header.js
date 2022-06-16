@@ -1,10 +1,17 @@
+import CartContextProvider from "../../../context/CartContext";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Cart from "../../cart/Cart";
 import Footer from "../footer/Footer";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 // import { Dropdown } from "bootstrap";
 
 function Header() {
   const navigate = useNavigate();
+
+  const {user}  = useContext(AuthContext)
+  // console.log(user.id)
+
   return (
     <>
       {/* ----- Header ----- */}
@@ -72,6 +79,11 @@ function Header() {
                           <hr className="dropdown-divider" />
                         </li>
                         <li>
+                          <Link className="dropdown-item" to="/PaymentMethod/Step1">
+                            Payment
+                          </Link>
+                        </li>
+                        <li>
                           <Link className="dropdown-item" to="/">
                             Something else here
                           </Link>
@@ -137,7 +149,7 @@ function Header() {
                       </button>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/Profile/:customerId">
+                      <Link className="nav-link" to={`/Profile/${user.id}`}>
                         <i className="fas fa-user-circle"></i>
                       </Link>
                     </li>
@@ -153,10 +165,12 @@ function Header() {
           </div>
         </div>
       </nav>
-      <div className=" body-container" >
+      <div className=" body-container">
         <Outlet />
       </div>
-      <Cart />
+      <CartContextProvider>
+        <Cart />
+      </CartContextProvider>
       <Footer />
     </>
   );

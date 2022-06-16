@@ -12,49 +12,51 @@ function ProductCart({
   size,
   cartItemId,
   setSubTotalPrice,
+  subTotalPrice,
+  cart,
+  setCart,
 }) {
-  console.log(JSON.parse(productPic)[0]);
-  console.log(size);
+  // console.log(JSON.parse(productPic)[0]);
+  // console.log(size);
   const [selectedSize, setSelectedSize] = useState(size);
-  // const [quantity, setQuantity] = useState(+"0");
-  const [check, setCheck] = useState(false);
+  const [check, setCheck] = useState(item.isCheck);
   const [productPrice, setProductPrice] = useState(price);
   const [newQuantity, setNewQuantity] = useState(quantity);
   const quantityEl = useRef(0);
 
-  // console.log(quantity)
-  console.log(productOptionId);
 
-  // แตกกกกกกก
-  // useEffect(() => {
-  //   const updateQuantity = async () => {
-  //     try {
-  //       await axios.patch("/cartItems", {
-  //         productOptionId,
-  //         quantity: newQuantity,
-  //       });
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   if (newQuantity > 0) {
-  //     updateQuantity();
-  //   }
-  // }, [newQuantity]);
+  useEffect(() => {
+    const updateQuantity = async () => {
+      try {
+        await axios.patch("/cartItems", {
+          productOptionId,
+          quantity: newQuantity,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+      // console.log("aaaaaaaaa", newQuantity);
+    };
+    if (newQuantity > 0) {
+      updateQuantity();
+    }
+  }, [newQuantity]);
+
 
   const handleChangeQuantity = (e) => {
     setNewQuantity(e.target.value);
-    console.log(newQuantity);
-    // if (!check) {
-    // setProductPrice(+quantityEl.current.value * price);
-    setProductPrice(newQuantity * price);
-    console.log(productPrice);
-    // }
-    // setProductPrice((prev) => prev - quantityEl.value * item.product.price);
-    // setQuantity(quantityEl.value);
-
-    // console.log(quantityEl.value)
-    // console.log(quantityEl)
+    const gap = e.target.value - quantity;
+    const currentTotal = gap * price;
+    setProductPrice(currentTotal);
+    const newCartItemArray = [...cart].map((item) => {
+      if (item.id === cartItemId) {
+        const newItem = { ...item, quantity: e.target.value };
+        return newItem;
+      }else{
+        return {...item}
+      }
+    });
+    setCart(newCartItemArray);
   };
 
   const deleteCartItem = async () => {
@@ -69,15 +71,17 @@ function ProductCart({
   const handleButtonInput = (e) => {
     if (!check) {
       setCheck(true);
-
-      setSubTotalPrice((prev) => prev + productPrice);
+      const newCart = [...cart];
+      newCart[index] = { ...item, isCheck: true };
+      setCart(newCart);
     }
     if (check && +quantityEl.current.value !== 0) {
       setCheck(false);
+      const newCart = [...cart];
+      newCart[index] = { ...item, isCheck: false };
+      setCart(newCart);
 
-      setSubTotalPrice((prev) => prev - productPrice);
     }
-    console.log(productPrice);
   };
 
   return (
@@ -94,8 +98,7 @@ function ProductCart({
         <div className="flex-grow-1">
           <div className="text-end mb-2 p-0">
             <button onClick={deleteCartItem}>
-
-            <i className="fa-solid fa-xmark"></i>
+              <i className="fa-solid fa-xmark"></i>
             </button>
           </div>
           <div className="d-flex justify-content-between">
@@ -178,7 +181,6 @@ function ProductCart({
                 className=" ms-5"
                 style={{ width: "40px" }}
                 value={newQuantity}
-                // ref={quantityEl}
                 onChange={handleChangeQuantity}
               ></input>
             </div>

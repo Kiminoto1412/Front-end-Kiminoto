@@ -1,12 +1,13 @@
 import Address from "../profile/Address";
 import { AuthContext } from "../../../context/AuthContext";
 import { Link, useLocation } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "../../../config/axios";
 
 function PaymentStep1() {
   const location = useLocation();
   const { user } = useContext(AuthContext);
-  // console.log(user)
+
 
   return (
     <div className="container mt-4">

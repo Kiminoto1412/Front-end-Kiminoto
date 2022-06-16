@@ -1,11 +1,21 @@
 import { Link, Outlet } from "react-router-dom";
 import MamProfile from "../../assets/images/MamProfile.jpg";
 import { useLocation } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 function Profile() {
   const location = useLocation();
-  // let locatiobVariable =location.pathname
-  console.log(location.pathname);
+
+  const { user } = useContext(AuthContext);
+
+  console.log(user)
+  const [profilePic, setProfilePic] = useState(user.profilePic);
+  // const [address, setAddress] = useState(user.address);
+  // const [city, setCity] = useState(user.city);
+  // const [district, setDistrict] = useState(user.district);
+  // const [postalCode, setPostalCode] = useState(user.postalCode);
+  // const [moreDetails, setMoreDetails] = useState(user.moreDetails);
 
   return (
     <div className="container mt-5">
@@ -14,10 +24,10 @@ function Profile() {
           <div className="col-3 ms-5 me-5 ">
             <div className="text-center">
               <img
-                src={MamProfile}
+                src={profilePic}
                 className=" border border-dark img-fluid"
-                style={{ width: 250 }}
-                alt="facebook"
+                style={{ width: 250 , height:250}}
+                alt="profilePic"
               />
               <div className="black-bottom-header mt-3 mb-4"></div>
               <div className="d-flex justify-content-center">
@@ -32,7 +42,7 @@ function Profile() {
                   My account
                 </Link>
                 <Link
-                  to="/Profile/EditProfile/:customerId"
+                  to={`/Profile/EditProfile/${user.id}`}
                   className={`text-dark text-decoration-none ${
                     location.pathname === "/Profile/EditProfile/:customerId"
                       ? "fw-bold"
