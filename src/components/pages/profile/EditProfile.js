@@ -22,20 +22,22 @@ function EditProfile() {
 
   const handleSubmitEditProfile = async (e) => {
     try {
-      e.preventDefault();
+      // e.preventDefault();
+      console.log(e)
 
-      const formData = new FormData();
-      formData.append("firstName",firstName)
-      formData.append("lastName" , lastName)
-      formData.append("email" , email)
-      formData.append("phoneNumber" , phoneNumber)
-      // console.log("first")
-      console.log(formData)
+      // const formData = new FormData();
+      // formData.append("firstName",firstName)
+      // formData.append("lastName" , lastName)
+      // formData.append("email" , email)
+      // formData.append("phoneNumber" , phoneNumber)
+      console.log("first")
+      // console.log(formData)
 
-      await axios.patch("/customers/me",formData);
-      navigate("/PaymentMethod/Step1")
+      // await axios.patch("/customers/me",formData);
+      // navigate("/PaymentMethod/Step1")
     } catch (err) {
-      setError(err.response.data.message);
+      // setError(err.response.data.message);
+      console.log(err.response.data)
     }
   };
 
