@@ -1,8 +1,12 @@
 import { useRef } from "react";
-import uploadImagePic from "../../../assets/images/uploadImagePic.png"
+import { useLocation } from "react-router-dom";
+import uploadImagePic from "../../../assets/images/uploadImagePic.png";
 
-function UploadImage({ profilePic, onChange, onDelete }) {
+function UploadImage({ profilePic, defaultProfilePic, onChange, onDelete }) {
   const inputEl = useRef();
+  let location = useLocation();
+
+  console.log(location.pathname)
   return (
     <>
       <div
@@ -25,17 +29,28 @@ function UploadImage({ profilePic, onChange, onDelete }) {
               src={URL.createObjectURL(profilePic)}
               alt="post"
               className="img-fluid"
+              style={{ width: 250, height: 250 }}
             />
           </>
         ) : (
-            <img
-            src={uploadImagePic}
-            className="me-4 bg-color-blank-image-grey p-5 "
+          <img
+            src={defaultProfilePic || uploadImagePic}
+            className="ms-4 me-4 bg-color-blank-image-grey img-fluid "
+            style={{ width: 250, height: 250 }}
             alt="uploadImagePic"
           />
         )}
       </div>
-      <input type="file" className="d-none" ref={inputEl} onChange={onChange} />
+      {location.pathname.startsWith("/Profile/EditProfile")  ? (
+        <input
+          type="file"
+          className="d-none"
+          ref={inputEl}
+          onChange={onChange}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

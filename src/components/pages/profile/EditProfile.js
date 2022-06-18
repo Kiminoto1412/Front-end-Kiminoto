@@ -3,46 +3,62 @@ import { useContext, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { ErrorContext } from "../../../context/ErrorContext";
+import { useOutletContext } from "react-router-dom";
 
 function EditProfile() {
   let location = useLocation();
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   //deconstruct ตาม route
-  const {customerId} = useParams();
-  console.log(customerId)
+  const { customerId } = useParams();
+  // console.log(customerId);
 
   const { user } = useContext(AuthContext);
   const { setError } = useContext(ErrorContext);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [profilePic, setProfilePic] = useOutletContext();
+
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [email, setEmail] = useState(user.email);
+  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
+
+  // console.log(profilePic)
 
   const handleSubmitEditProfile = async (e) => {
     try {
-      // e.preventDefault();
-      console.log(e)
+      e.preventDefault();
 
-      // const formData = new FormData();
-      // formData.append("firstName",firstName)
-      // formData.append("lastName" , lastName)
-      // formData.append("email" , email)
-      // formData.append("phoneNumber" , phoneNumber)
-      console.log("first")
+      const formData = new FormData();
+      formData.append("firstName",firstName)
+      formData.append("lastName" , lastName)
+      formData.append("email" , email)
+      formData.append("phoneNumber" , phoneNumber)
+      formData.append("profilePic" , profilePic)
+      // console.log("first");
       // console.log(formData)
 
-      // await axios.patch("/customers/me",formData);
+      await axios.patch("/customers/me",formData);
       // navigate("/PaymentMethod/Step1")
     } catch (err) {
-      // setError(err.response.data.message);
-      console.log(err.response.data)
+      setError(err.response.data.message);
+      // console.log(err.response.data)
     }
   };
 
+  const [text, setText] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("aaa");
+  };
+
+  // const handle = (e) => {
+  //   e.preventDefault();
+  //   console.log("first");
+  // };
   return (
     <>
+
       <form onSubmit={handleSubmitEditProfile}>
         <h5 className="fw-bold ">Edit Profile</h5>
         <div className="form-group mt-3">

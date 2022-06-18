@@ -1,26 +1,64 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Brandfilter() {
   const navigate = useNavigate();
+  let location = useLocation();
+
+  console.log(location.pathname)
   return (
     <div className="bg-color-brow-plus-grey-filter">
       <div className="container">
         <div className="row">
-          <div className="col-2  text-center border-bottom-dark-brown-filter">
-            <div className="mt-2 mb-2">Home</div>
-          </div>
-          <div className="col-2  text-center text-dark">
-            <div className="mt-2 mb-2">All Products</div>
-          </div>
-          <div className="col-2  text-center text-dark">
-            <div className="mt-2 mb-2">T-shirt</div>
-          </div>
-          <div className="col-2  text-center text-dark">
-            <div className="mt-2 mb-2">Shorts</div>
-          </div>
-          <div className="col-2  text-center text-dark">
-            <div className="mt-2 mb-2">Pants</div>
-          </div>
+          <Link
+            to="/Brand"
+            className={`col-2  text-center text-decoration-none ${
+              location.pathname === "/Brand"
+                ? "border-bottom-dark-brown-filter"
+                : null
+            }`}
+          >
+            <div className="mt-2 mb-2 text-dark">Home</div>
+          </Link>
+          <Link
+            to="/Brand/AllProduct"
+            className={`col-2  text-center text-decoration-none ${
+              location.pathname === "/Brand/AllProduct"
+                ? "border-bottom-dark-brown-filter"
+                : null
+            }`}
+          >
+            <div className="mt-2 mb-2 text-dark">All Products</div>
+          </Link>
+          <Link
+            to="/Brand/Shirt"
+            className={`col-2  text-center text-decoration-none ${
+              location.pathname === "/Brand/Shirt"
+                ? "border-bottom-dark-brown-filter"
+                : null
+            }`}
+          >
+            <div className="mt-2 mb-2 text-dark">T-shirt</div>
+          </Link>
+          <Link
+            to="/Brand/Pants"
+            className={`col-2  text-center text-decoration-none ${
+              location.pathname === "/Brand/Pants"
+                ? "border-bottom-dark-brown-filter"
+                : null
+            }`}
+          >
+            <div className="mt-2 mb-2 text-dark">Pants</div>
+          </Link>
+          <Link
+            to="/Brand/Accessories"
+            className={`col-2  text-center text-decoration-none ${
+              location.pathname === "/Brand/Accessories"
+                ? "border-bottom-dark-brown-filter"
+                : null
+            }`}
+          >
+            <div className="mt-2 mb-2 text-dark">Accessories</div>
+          </Link>
           <div className="col-2  ">
             <nav class="navbar navbar-expand-lg p-0 ">
               <div class="collapse navbar-collapse " id="navbarNavDarkDropdown">

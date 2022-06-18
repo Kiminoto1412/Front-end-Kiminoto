@@ -25,6 +25,12 @@ import PaymentStep2 from "../components/pages/payment/PaymentStep2";
 import PaymentStep3 from "../components/pages/payment/PaymentStep3";
 import PaymentHeader from "../components/pages/payment/PaymentHeader";
 import PaymentEditAddressStep1 from "../components/pages/payment/PaymentEditAddressStep1";
+import BrandHome from "../components/brand/BrandHome";
+import BrandAllProduct from "../components/brand/BrandAllProduct";
+import BrandShirt from "../components/brand/BrandShirt";
+import BrandPants from "../components/brand/BrandPants";
+import BrandAccessories from "../components/brand/BrandAccessories";
+import ContactUs from "../components/pages/ContactUs";
 
 function Router() {
   // const { user } = useContext(AuthContext);
@@ -37,8 +43,15 @@ function Router() {
           <Route path="/" element={<Header />}>
             <Route path="" element={<HomePage />} />
             <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/Brand" element={<BrandPage />} />
-            
+            <Route path="/Brand" element={<BrandPage />}>
+              <Route path="" element={<BrandHome />} />
+              <Route path="AllProduct" element={<BrandAllProduct />} />
+              <Route path="Shirt" element={<BrandShirt />} />
+              <Route path="Pants" element={<BrandPants />} />
+              <Route path="Accessories" element={<BrandAccessories />} />
+            </Route>
+            <Route path="/contactUs" element={<ContactUs />} />
+
             <Route path="/Product/:productId" element={<ProductPage />} />
             {role === "customer" ? (
               <>
@@ -62,10 +75,13 @@ function Router() {
                     element={<MyPurchase />}
                   />
                 </Route>
-                
+
                 <Route path="/PaymentMethod" element={<PaymentHeader />}>
                   <Route path="Step1" element={<PaymentStep1 />} />
-                  <Route path="EditStep1" element={<PaymentEditAddressStep1 />} />
+                  <Route
+                    path="EditStep1"
+                    element={<PaymentEditAddressStep1 />}
+                  />
                   <Route path="Step2" element={<PaymentStep2 />} />
                   <Route path="Step3" element={<PaymentStep3 />} />
                 </Route>
@@ -118,7 +134,6 @@ function Router() {
         </>
       )}
     </Routes>
-
   );
 }
 

@@ -6,7 +6,7 @@ import chatIcon from "../../assets/images/chatIcon.png";
 
 function BrandBanner() {
   return (
-    <div className="bg-color-brow-banner pb-4">
+    <div className="bg-color-brow-banner pb-4 mt-5">
       <div className="container">
         <div className="row">
           {/* Profile Brand Pic Banner */}

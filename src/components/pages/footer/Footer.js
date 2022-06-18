@@ -28,7 +28,7 @@ function Footer() {
                 <p className="fw-bold  mt-2 me-4">Shop</p>
                 <Link
                   className="text-dark mt-2"
-                  to="/"
+                  to="/Brand"
                   role="button"
                   style={{ textDecoration: "none" }}
                 >
@@ -40,7 +40,7 @@ function Footer() {
                 <p className="fw-bold mt-2">Help &#38; Support</p>
                 <Link
                   className="text-dark mt-2"
-                  to="/"
+                  to="/contactUs"
                   role="button"
                   style={{ textDecoration: "none" }}
                 >

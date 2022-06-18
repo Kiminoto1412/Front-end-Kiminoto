@@ -13,6 +13,7 @@ function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
   let navigate = useNavigate();
   const [role, setRole] = useState(null);
+  const [loading , setLoading] = useState(false)
 
   useEffect(() => {
     const fetchMe = async () => {
@@ -22,11 +23,6 @@ function AuthContextProvider({ children }) {
           const resMe = await axios.get("/customers/me");
           setUser(resMe.data.customer || resMe.data.admin);
           setRole(resMe.data.role);
-          // console.log(resMe.data.user)
-          // console.log(resMe.data.role);
-          // console.log(role);
-          // console.log(resMe.data.customer);
-
         }
       } catch (err) {
         removeAccessToken();
@@ -85,11 +81,12 @@ function AuthContextProvider({ children }) {
   const logout = () => {
     removeAccessToken();
     setUser(null);
+    setRole(null)
   };
 
   return (
     <AuthContext.Provider
-      value={{ signUp, user, login, loginAdmin, logout, role }}
+      value={{ signUp, user, login, loginAdmin, logout, role ,loading,setLoading}}
     >
       {children}
     </AuthContext.Provider>

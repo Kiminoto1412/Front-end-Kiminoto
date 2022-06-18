@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ErrorContext } from "../../context/ErrorContext";
 
-import EditProfile from "../../components/pages/profile/EditProfile";
+import CreateProfile from "../pages/profile/CreateProfile";
 import EditAddress from "../../components/pages/profile/EditAddress";
 import { Spinner } from "react-bootstrap";
 import UploadImage from "./form/UploadImage";
@@ -12,6 +12,7 @@ function SignUp() {
 
   let navigate = useNavigate();
   
+  const {setLoading} = useContext(AuthContext)
   
   //setFirstName={setFirstName} , setLastName={setLastName},setEmail={setEmail} ,setPhoneNumber={setPhoneNumber},setPassword={setPassword},setConfirmPassword={setConfirmPassword}
   const [firstName, setFirstName] = useState("");
@@ -23,7 +24,7 @@ function SignUp() {
 
   //Image State
   const [profilePic, setProfilePic] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   //setAddressName={setAddressName} setAddress={setAddress} setProvince={setProvince} setDistrict={setDistrict} setPostalCode={setPostalCode} setMoreDetails={setMoreDetails}
   const [addressName, setAddressName] = useState("");
@@ -40,6 +41,7 @@ function SignUp() {
       e.preventDefault();
       //validate input first
 
+      setLoading(true)
       //end validate
       await signUp({
         firstName,
@@ -57,6 +59,8 @@ function SignUp() {
         moreDetails,
       });
       console.log(profilePic)
+
+      setLoading(false)
       navigate("/")
     } catch (err) {
       setError(err.response.data.message);
@@ -65,7 +69,7 @@ function SignUp() {
 
   return (
     <>
-      {loading && <Spinner />}
+      {/* {loading && <Spinner />} */}
      
       <div className="container mt-5">
         <form onSubmit={handleSubmitSignUp}>
@@ -90,7 +94,7 @@ function SignUp() {
               </div>
             </div>
             <div className="col-8">
-              <EditProfile
+              <CreateProfile
                 title={"SignUp"}
                 setFirstName={setFirstName}
                 setLastName={setLastName}

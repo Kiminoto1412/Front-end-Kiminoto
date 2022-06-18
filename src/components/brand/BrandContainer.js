@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import CardContainer from "../cardsList/CardContainer";
 import BrandBanner from "./BrandBanner";
 import Brandfilter from "./Brandfilter";
@@ -8,7 +9,8 @@ function BrandContainer() {
       <BrandBanner />
       <Brandfilter />
       <div className="container ">
-        <CardContainer />
+        <Outlet />
+        {/* <CardContainer /> */}
       </div>
     </>
   );

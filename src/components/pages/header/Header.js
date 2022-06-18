@@ -4,13 +4,17 @@ import Cart from "../../cart/Cart";
 import Footer from "../footer/Footer";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import { CategoriesContext } from "../../../context/CategoriesContext";
 // import { Dropdown } from "bootstrap";
 
 function Header() {
   const navigate = useNavigate();
 
-  const {user}  = useContext(AuthContext)
-  // console.log(user.id)
+  const { user, loading, logout } = useContext(AuthContext);
+  const { categories } = useContext(CategoriesContext);
+
+  console.log(user);
+  console.log(categories)
 
   return (
     <>
@@ -50,6 +54,36 @@ function Header() {
                         Brand
                       </Link>
                     </li>
+                    {/* Categories */}
+
+                    <li className="nav-item dropdown">
+                      <div
+                        className="nav-link dropdown-toggle"
+                        to="/"
+                        id="categoriesDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Categories
+                      </div>
+                      <ul
+                        className="dropdown-menu"
+                        aria-labelledby="categoriesDropdown"
+                      >
+                        {categories.map((category) => (
+                          <li className="nav-item">
+                            <Link
+                              className="dropdown-item"
+                              to={`/categories/${category.id}`}
+                            >
+                              <p>{category.name}</p>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+
                     <li className="nav-item dropdown">
                       <div
                         className="nav-link dropdown-toggle"
@@ -79,7 +113,10 @@ function Header() {
                           <hr className="dropdown-divider" />
                         </li>
                         <li>
-                          <Link className="dropdown-item" to="/PaymentMethod/Step1">
+                          <Link
+                            className="dropdown-item"
+                            to="/PaymentMethod/Step1"
+                          >
                             Payment
                           </Link>
                         </li>
@@ -149,13 +186,22 @@ function Header() {
                       </button>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to={`/Profile/${user.id}`}>
-                        <i className="fas fa-user-circle"></i>
-                      </Link>
+                      {user ? (
+                        <Link className="nav-link" to={`/Profile/${user?.id}`}>
+                          <i className="fas fa-user-circle"></i>
+                        </Link>
+                      ) : (
+                        <></>
+                      )}
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <Link className="nav-link" to="/sign-up">
                         <p>Sign in</p>
+                      </Link>
+                    </li> */}
+                    <li className="nav-item">
+                      <Link className="nav-link" onClick={logout} to="/">
+                        <p>Log out</p>
                       </Link>
                     </li>
                   </ul>
