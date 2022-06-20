@@ -12,13 +12,13 @@ import EditProfile from "../components/pages/profile/EditProfile";
 import Address from "../components/pages/profile/Address";
 import EditAddress from "../components/pages/profile/EditAddress";
 import ChangePassword from "../components/pages/profile/ChangePassword";
-import MyPurchase from "../components/pages/profile/MyPurchase";
+import MyPurchase from "../components/pages/order/MyPurchase";
 import ModalLoginPage from "../components/pages/ModalLoginPage";
 import EditProductPage from "../components/pages/adminPage/EditProductPage";
 import AdminLogin from "../components/pages/adminPage/AdminLogin";
 import BlankAdminPage from "../components/pages/adminPage/BlankAdminPage";
-import OrderTracking from "../components/pages/adminPage/OrderTracking";
-import ChangeOrderTracking from "../components/pages/adminPage/ChangeOrderTracking";
+import OrderTracking from "../components/pages/adminPage/orderTracking/OrderTracking";
+import ChangeOrderTracking from "../components/pages/adminPage/orderTracking/ChangeOrderTracking";
 import BlankCustomerPage from "../components/pages/BlankCustomerPage";
 import PaymentStep1 from "../components/pages/payment/PaymentStep1";
 import PaymentStep2 from "../components/pages/payment/PaymentStep2";
@@ -31,6 +31,7 @@ import BrandShirt from "../components/brand/BrandShirt";
 import BrandPants from "../components/brand/BrandPants";
 import BrandAccessories from "../components/brand/BrandAccessories";
 import ContactUs from "../components/pages/ContactUs";
+import CreateProduct from "../components/pages/adminPage/CreateProduct";
 
 function Router() {
   // const { user } = useContext(AuthContext);
@@ -100,7 +101,7 @@ function Router() {
                     element={<ChangePassword />}
                   />
                 </Route>
-                <Route path="/createProduct" />
+                <Route path="/createProduct" element={<CreateProduct />} />
                 <Route
                   path="/EditProduct/:productId"
                   element={<EditProductPage />}

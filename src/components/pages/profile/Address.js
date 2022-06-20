@@ -10,7 +10,7 @@ function Address() {
 
   //deconstruct ตาม route
   const {customerId} = useParams();
-  console.log(customerId)
+  // console.log(customerId)
 
   const { user } = useContext(AuthContext);
 

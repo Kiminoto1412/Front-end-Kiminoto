@@ -1,40 +1,17 @@
-import uploadImagePic from "../../../assets/images/uploadImagePic.png";
-import truck from "../../../assets/images/truck.png";
+import uploadImagePic from "../../../../assets/images/uploadImagePic.png";
+import truck from "../../../../assets/images/truck.png";
 import { useState } from "react";
 
 function ChangeOrderTracking() {
-  const date = new Date();
-  let month = date.getMonth() + 1; //months from 1-12
-  let day = date.getDate();
-  let year = date.getFullYear();
-  console.log(date);
-  let newdate = year + "-" + month + "-" + day;
-  console.log(newdate);
+  // const date = new Date();
+  // let month = date.getMonth() + 1; //months from 1-12
+  // let day = date.getDate();
+  // let year = date.getFullYear();
+  // console.log(date);
+  // let newdate = year + "-" + month + "-" + day;
+  // console.log(newdate);
 
-  const dataFrommOrder = [
-    {
-      order: {
-        deliveryPrice: 40,
-        totalPrice: 120,
-        paymentSlip: "pic",
-        paymentDate: "2022-6-11",
-        status: "pending",
-        orderItem:{
-            id:1,
-            
-        }
-      },
-    },
-    {
-      product: {
-        productId: 2,
-        name: "Earth-tone Shirt",
-        price: 450,
-      },
-    },
-  ];
 
-  const [status, setStatus] = useState();
 
   return (
     <div className="container mt-5">

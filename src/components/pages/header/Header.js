@@ -141,33 +141,7 @@ function Header() {
                 </div>
                 <div className="col d-flex justify-content-end">
                   <ul className="navbar-nav ml-auto  ">
-                    <li className="nav-item dropdown-container">
-                      <Link
-                        className="btn dropdown-toggle nav-link"
-                        to="/"
-                        role="button"
-                        id="languagesDropdown"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        En
-                      </Link>
-                      <ul
-                        className="dropdown-menu p-3"
-                        aria-labelledby="languagesDropdown"
-                      >
-                        <li>
-                          <Link className="dropdown-item" to="/">
-                            <p>English</p>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="dropdown-item" to="/">
-                            <p className="th-option">ไทย</p>
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
+                    
                     <li className="nav-item">
                       <Link className="nav-link" to="/">
                         <i className="fas fa-search"></i>

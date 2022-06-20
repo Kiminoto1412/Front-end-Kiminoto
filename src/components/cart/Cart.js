@@ -2,7 +2,7 @@ import { CartContext } from "../../context/CartContext";
 import { ErrorContext } from "../../context/ErrorContext";
 
 import { useContext, useEffect, useState } from "react";
-import { Link ,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProductCart from "./ProductCart";
 import axios from "../../config/axios";
 
@@ -70,7 +70,7 @@ function Cart() {
         totalPrice,
         cartItemsIds,
       });
-      navigate("/PaymentMethod/Step1")
+      navigate("/PaymentMethod/Step1");
     } catch (err) {
       setError(err.response.data.message);
     }
@@ -155,17 +155,18 @@ function Cart() {
               <p className="me-3">{totalPrice} THB</p>
             </div>
             <div className="text-center">
-          
-
-            <button
-            className="btn btn-dark "
-            type="submit"
-            disabled ={cartItemArray.length > 0 ?false :true }
-            // to="/PaymentMethod/Step1"
-            >
+              <button
+                className="btn btn-dark "
+                type="submit"
+                disabled={
+                  cartItemArray.filter((el) => el.isCheck == true).length > 0
+                    ? false
+                    : true
+                }
+                // to="/PaymentMethod/Step1"
+              >
                 PROCEED TO CHECKOUT
               </button>
-              
             </div>
           </div>
         </div>

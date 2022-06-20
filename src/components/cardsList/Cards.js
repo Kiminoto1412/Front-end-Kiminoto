@@ -7,7 +7,7 @@ function Cards({productId , name , price , productPic}) {
 
   return (
     <>
-      <div className="col-3">
+      <div className="col-3 mt-4">
         <Link className="card text-dark text-decoration-none" to={`/Product/${productId}`}>
           <img src={productPic} className="card-img-top" alt="..." />
           <div className="card-body">

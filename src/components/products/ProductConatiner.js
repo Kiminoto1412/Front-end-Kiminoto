@@ -1,11 +1,11 @@
-import ProductBanner from "./ProductBanner"
+import ProductBanner from "./ProductBanner";
 
 function ProductConatiner() {
   return (
     <>
-    <ProductBanner />
+      <ProductBanner />
     </>
-  )
+  );
 }
 
-export default ProductConatiner
+export default ProductConatiner;

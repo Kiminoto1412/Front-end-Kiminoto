@@ -7,7 +7,7 @@ import { useOutletContext } from "react-router-dom";
 
 function EditProfile() {
   let location = useLocation();
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
 
   //deconstruct ตาม route
   const { customerId } = useParams();
@@ -39,7 +39,7 @@ function EditProfile() {
       // console.log(formData)
 
       await axios.patch("/customers/me",formData);
-      // navigate("/PaymentMethod/Step1")
+      navigate(`/Profile/${customerId}`)
     } catch (err) {
       setError(err.response.data.message);
       // console.log(err.response.data)

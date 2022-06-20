@@ -12,11 +12,6 @@ function Profile() {
 
   console.log(user);
   const [profilePic, setProfilePic] = useState(null);
-  // const [address, setAddress] = useState(user.address);
-  // const [city, setCity] = useState(user.city);
-  // const [district, setDistrict] = useState(user.district);
-  // const [postalCode, setPostalCode] = useState(user.postalCode);
-  // const [moreDetails, setMoreDetails] = useState(user.moreDetails);
 
   console.log(user.profilePic);
 
@@ -51,9 +46,9 @@ function Profile() {
             <div className="black-bottom-header mt-3 mb-4"></div>
             <div className="d-flex justify-content-center">
               <Link
-                to="/Profile/:customerId"
+                to={`/Profile/${user.id}`}
                 className={`text-dark text-decoration-none  ${
-                  location.pathname === "/Profile/:customerId" ? "fw-bold" : ""
+                  location.pathname === `/Profile/${user.id}` ? "fw-bold" : ""
                 } `}
               >
                 My account
@@ -61,7 +56,7 @@ function Profile() {
               <Link
                 to={`/Profile/EditProfile/${user.id}`}
                 className={`text-dark text-decoration-none ${
-                  location.pathname === "/Profile/EditProfile/:customerId"
+                  location.pathname === `/Profile/EditProfile/${user.id}`
                     ? "fw-bold"
                     : ""
                 }`}
@@ -71,7 +66,7 @@ function Profile() {
                   style={{
                     fontSize: 12,
                     color:
-                      location.pathname === "/Profile/EditProfile/:customerId"
+                      location.pathname === `/Profile/EditProfile/${user.id}`
                         ? "black"
                         : "grey",
                   }}
@@ -82,9 +77,9 @@ function Profile() {
               <div className="d-flex justify-content-start">
                 <li>
                   <Link
-                    to="/Profile/Address/:customerId"
+                    to={`/Profile/Address/${user.id}`}
                     className={`text-dark text-decoration-none ${
-                      location.pathname === "/Profile/Address/:customerId"
+                      location.pathname === `/Profile/Address/${user.id}`
                         ? "fw-bold"
                         : ""
                     }`}
@@ -92,7 +87,7 @@ function Profile() {
                     Address
                   </Link>
                   <Link
-                    to="/Profile/EditAddress/:customerId"
+                    to={`/Profile/EditAddress/${user.id}`}
                     className={`text-dark text-decoration-none ${
                       location.pathname === "/Profile/EditAddress/:customerId"
                         ? "fw-bold"
@@ -105,7 +100,7 @@ function Profile() {
                         fontSize: 12,
                         color:
                           location.pathname ===
-                          "/Profile/EditAddress/:customerId"
+                          `/Profile/EditAddress/${user.id}`
                             ? "black"
                             : "grey",
                       }}
@@ -116,9 +111,9 @@ function Profile() {
 
               <li>
                 <Link
-                  to="/Profile/ChangePassword/:customerId"
+                  to={`/Profile/ChangePassword/${user.id}`}
                   className={`text-dark text-decoration-none ${
-                    location.pathname === "/Profile/ChangePassword/:customerId"
+                    location.pathname === `/Profile/ChangePassword/${user.id}`
                       ? "fw-bold"
                       : ""
                   }`}
@@ -128,9 +123,9 @@ function Profile() {
               </li>
             </div>
             <Link
-              to="/Profile/MyPurchase/:customerId"
+              to={`/Profile/MyPurchase/${user.id}`}
               className={`text-dark text-decoration-none ${
-                location.pathname === "/Profile/MyPurchase/:customerId"
+                location.pathname === `/Profile/MyPurchase/${user.id}`
                   ? "fw-bold"
                   : ""
               }`}

@@ -1,94 +1,104 @@
 import { Carousel, Spinner } from "react-bootstrap";
-import { useContext, useState } from "react";
-import EarthToneShirt1 from "../../../assets/images/EarthToneShirt1.jpg";
-import EarthToneShirt2 from "../../../assets/images/EarthToneShirt2.jpg";
+import { useContext, useEffect, useState } from "react";
 // import sizeGuidePic from "../../assets/images/sizeGuidePic.png";
 import EditSIzeColor from "../product/editProduct/EditSIzeColor";
 import UploadSizeGuideImg from "../editProduct/UploadSizeGuideImg";
 import { updateProduct } from "../../../api/apiProduct";
 import { ErrorContext } from "../../../context/ErrorContext";
 import EditCategoty from "../product/editProduct/EditCategoty";
+import UploadProduct1 from "../form/UploadProduct1";
+import UploadProduct2 from "../form/UploadProduct2";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 // import { AuthContext } from "../../context/AuthContext";
 
 function EditProductPage() {
-  const data = [
-    { src: EarthToneShirt1 },
-    { src: EarthToneShirt2 },
-    { src: EarthToneShirt1 },
-    { src: EarthToneShirt2 },
-  ];
-
   //   const { admin } = useContext(AuthContext);
+  let navigate = useNavigate();
+
+  //fetch Product State
+  const [productObj, setProductObj] = useState({});
+  const [productOptionArr, setProductOptionArr] = useState([]);
+
+  const [productPic, setProductPic] = useState(["","","","",""]);
+
   //State
-  const [productName, setProductName] = useState("");
-  const [price, setPrice] = useState("");
+  const [productName, setProductName] = useState(productObj.name);
+  const [price, setPrice] = useState(productObj.price);
+
+  //Unique Arr
+  const [colorAr, setColorAr] = useState([]);
+
+  const { productId } = useParams();
   //Image State
+
+  //State Image JSON like Array
+  const [ArrayPic, setArrayPic] = useState("");
+  //StockPic
+  const [stock, setStock] = useState([
+    { idx: 0, url: "" },
+    { idx: 1, url: "" },
+    { idx: 2, url: "" },
+    { idx: 3, url: "" },
+    { idx: 4, url: "" },
+  ]);
+
+  // console.log(productObj.sizeGuide)
+
   const [sizeGuide, setSizeGuide] = useState("");
   const [loading, setLoading] = useState(false);
 
   //Size S State
+  const [sizeSArr, setSizeSArr] = useState([]);
   const [sizeS, setSizeS] = useState(false);
   const [colorS1, setColorS1] = useState("");
   const [colorS2, setColorS2] = useState("");
+  const [colorS3, setColorS3] = useState("");
   const [quantityS1, setQuantityS1] = useState("");
   const [quantityS2, setQuantityS2] = useState("");
+  const [quantityS3, setQuantityS3] = useState("");
 
   //Size M State
+  const [sizeMArr, setSizeMArr] = useState([]);
   const [sizeM, setSizeM] = useState(false);
-  const [colorM1, setColorM1] = useState("");
-  const [colorM2, setColorM2] = useState("");
   const [quantityM1, setQuantityM1] = useState("");
   const [quantityM2, setQuantityM2] = useState("");
+  const [quantityM3, setQuantityM3] = useState("");
 
   //Size L State
+  const [sizeLArr, setSizeLArr] = useState([]);
   const [sizeL, setSizeL] = useState(false);
-  const [colorL1, setColorL1] = useState("");
-  const [colorL2, setColorL2] = useState("");
   const [quantityL1, setQuantityL1] = useState("");
   const [quantityL2, setQuantityL2] = useState("");
+  const [quantityL3, setQuantityL3] = useState("");
 
   //Size XL State
+  const [sizeXLArr, setSizeXLArr] = useState([]);
   const [sizeXL, setSizeXL] = useState(false);
-  const [colorXL1, setColorXL1] = useState("");
-  const [colorXL2, setColorXL2] = useState("");
   const [quantityXL1, setQuantityXL1] = useState("");
   const [quantityXL2, setQuantityXL2] = useState("");
+  const [quantityXL3, setQuantityXL3] = useState("");
 
   //Size XXL State
+  const [sizeXXLArr, setSizeXXLArr] = useState([]);
   const [sizeXXL, setSizeXXL] = useState(false);
-  const [colorXXL1, setColorXXL1] = useState("");
-  const [colorXXL2, setColorXXL2] = useState("");
   const [quantityXXL1, setQuantityXXL1] = useState("");
   const [quantityXXL2, setQuantityXXL2] = useState("");
+  const [quantityXXL3, setQuantityXXL3] = useState("");
 
   //ProductDescription
   const [productDescription, setProductDescription] = useState("");
 
   //Category
   const [category, setCategory] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   //SubCategory
   const [subCategory, setSubCategory] = useState("");
+  const [subCategoryId, setSubCategoryId] = useState("");
 
   const [index, setIndex] = useState(0);
 
   const { setError, setTrigger } = useContext(ErrorContext);
-
-  //
-  // useEffect(() => {
-  //   setImage(null);
-  // });
-
-  // const handleClickSavePost = async () => {
-  //   try {
-  //     setLoading(true);
-  //     //ต้องvalidateด้วย ไปเขียนเอง
-  //     await createPost(title, image);
-  //   } catch (err) {
-  //     next(err);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   //Handle
   const handleSelect = (selectedIndex, e) => {
@@ -97,6 +107,7 @@ function EditProductPage() {
 
   const handleSizeS = () => {
     setSizeS((prev) => !prev);
+    // setStockOption()
   };
   const handleSizeM = () => {
     setSizeM((prev) => !prev);
@@ -111,71 +122,144 @@ function EditProductPage() {
     setSizeXXL((prev) => !prev);
   };
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(`/products/${productId}`);
+        console.log(res.data.product[0]);
+        if (res.data.product) {
+          setProductObj(res.data.product[0]);
+          setProductOptionArr(res.data.product[0].ProductOptions);
+          setArrayPic(JSON.parse(res.data.product[0].productPic));
+
+          //setStock โดย create ใหม่แม่งเลย
+          setStock(
+            JSON.parse(res.data.product[0].productPic).map((item, idx) => {
+              return { idx, url: item };
+            })
+          );
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchProduct();
+    
+  }, []);
+
+  console.log(stock);
+
+  useEffect(() => {
+    const arrayColor = productOptionArr.map((el, idx) => {
+      return el.color;
+    });
+    // console.log(arrayColor)
+    const uniqueArrayColor = [...new Set(arrayColor)];
+    setColorAr(uniqueArrayColor);
+    // console.log(uniqueArrayColor);
+
+    const ArraySizeS = productOptionArr.filter((el) => el.size === "s");
+    // console.log(ArraySizeS)
+    setSizeSArr(ArraySizeS);
+    const ArraySizeM = productOptionArr.filter((el) => el.size === "m");
+    // console.log(ArraySizeM)
+    setSizeMArr(ArraySizeM);
+    const ArraySizeL = productOptionArr.filter((el) => el.size === "l");
+    // console.log(ArraySizeL)
+    setSizeLArr(ArraySizeL);
+    const ArraySizeXL = productOptionArr.filter((el) => el.size === "xl");
+    // console.log(ArraySizeXL)
+    setSizeXLArr(ArraySizeXL);
+    const ArraySizeXXL = productOptionArr.filter((el) => el.size === "xxl");
+    // console.log(ArraySizeXXL)
+    setSizeXXLArr(ArraySizeXXL);
+
+    setCategory(productObj.ProductCategory?.name.toLowerCase());
+    setSubCategory(productObj.ProductSubCategory?.name.toLowerCase());
+  }, [productObj]);
+
+  useEffect(() => {
+    if (colorAr.length > 0) {
+      setColorS1(colorAr[0]);
+      setColorS2(colorAr[1]);
+      setColorS3(colorAr[2]);
+    }
+  }, [colorAr]);
+
+  console.log(ArrayPic);
+
+  // const PIC = ArrayPic.map((item, idx) => {
+  //   // console.log(item)
+  //   const newStock = [...stock];
+  //   newStock[idx].url = item;
+  // });
+
+  // const [stock, setStock] = useState([
+  //   { idx: 0, url: "" },
+  //   { idx: 1, url: "" },
+  //   { idx: 2, url: "" },
+  //   { idx: 3, url: "" },
+  //   { idx: 4, url: "" },
+  // ]);
+
   //HandleSubmit
   const handleSubmitUpdateProduct = async (e) => {
     try {
       e.preventDefault();
       //validate input first
+      const stocks = [
+        { size: "s", color: colorS1, storage: quantityS1 },
+        { size: "s", color: colorS2, storage: quantityS2 },
+        { size: "s", color: colorS3, storage: quantityS3 },
+        { size: "m", color: colorS1, storage: quantityM1 },
+        { size: "m", color: colorS2, storage: quantityM2 },
+        { size: "m", color: colorS3, storage: quantityM3 },
+        { size: "l", color: colorS1, storage: quantityL1 },
+        { size: "l", color: colorS2, storage: quantityL2 },
+        { size: "l", color: colorS3, storage: quantityL3 },
+        { size: "xl", color: colorS1, storage: quantityXL1 },
+        { size: "xl", color: colorS2, storage: quantityXL2 },
+        { size: "xl", color: colorS3, storage: quantityXL3 },
+        { size: "xxl", color: colorS1, storage: quantityXXL1 },
+        { size: "xxl", color: colorS2, storage: quantityXXL2 },
+        { size: "xxl", color: colorS3, storage: quantityXXL3 },
+      ];
 
+      console.log(stocks)
+
+      const filteredStocks = stocks.filter((e) => {
+        return e.storage !== "";
+      });
+      console.log(filteredStocks);
+      // console.log("filtereddddddddddd", filteredStocks);
       //end validate
       await updateProduct({
         name: productName,
         price,
+        productDescription,
+        stockImg: productPic,
         sizeGuide,
-        sizeS,
-        colorS1,
-        colorS2,
-        quantityS1,
-        quantityS2,
-        sizeM,
-        colorM1,
-        colorM2,
-        quantityM1,
-        quantityM2,
-        sizeL,
-        colorL1,
-        colorL2,
-        quantityL1,
-        quantityL2,
-        sizeXL,
-        colorXL1,
-        colorXL2,
-        quantityXL1,
-        quantityXL2,
-        sizeXXL,
-        colorXXL1,
-        colorXXL2,
-        quantityXXL1,
-        quantityXXL2,
-        category,
-        subCategory,
+        stocks: filteredStocks,
+        categoryId,
+        subCategoryId,
+        productId
       });
+      // navigate(`/`);
+
       //   console.log(profilePic)
     } catch (err) {
       setError(err.response.data.message);
     }
   };
 
-  //   console.log(colorS1)
-  //   console.log(colorS2)
-  //   console.log(quantityS1)
-  //   console.log(quantityS2)
-  //   console.log(colorM1)
-  //   console.log(colorM2)
-  //   console.log(quantityM1)
-  //   console.log(quantityM2)
-  //   console.log(colorL1)
-  //   console.log(colorL2)
-  //   console.log(quantityL1)
-  //   console.log(quantityL2)
-  //   console.log(colorXL1)
-  //   console.log(colorXL2)
-  //   console.log(quantityXL1)
-  //   console.log(quantityXL2)
-  //   console.log(colorXXL1)
-  //   console.log(colorXXL2)
-  //   console.log(quantityXXL1)
-  //   console.log(quantityXXL2)
+  // console.log(productObj.sizeGuide)
+  // console.log(productObj.ProductCategory);
+
+  // console.log(productPic1)
+  // console.log(productObj.ProductCategory.name)
+
+  console.log(productPic)
+  console.log(stock)
   return (
     <>
       {loading && <Spinner />}
@@ -183,34 +267,53 @@ function EditProductPage() {
         <form onSubmit={handleSubmitUpdateProduct}>
           <div className="row justify-content-center">
             <div className="col-8 ">
-              <Carousel activeIndex={index} onSelect={handleSelect}>
-                {data.map((item, index) => {
-                  return (
-                    <Carousel.Item key={index}>
-                      <img
-                        className="d-block w-100"
-                        src={item.src}
-                        alt="First slide"
-                      />
-                    </Carousel.Item>
-                  );
-                })}
-              </Carousel>
+              {/* Upload ProductPic */}
+              <div>
+                <UploadProduct1
+                  defaultProductPic={stock[0].url}
+                  productPic={productPic[0]}
+                  // ถ้า productPic ยังไม่มีค่า จะเป้น null ถ้ากดcancel เป็น undefined
+                  onChange={(e) => {
+                    if (e.target.files[0]) {
+                      const newStock = [...stock];
+                      newStock[0].url = e.target.files[0];
+                      setStock(newStock);
+                      const newProductPic = [...productPic]
+                       newProductPic[0] = e.target.files[0]
+                      setProductPic(newProductPic)  
+                    }
+                  }}
+                  onDelete={() => {
+                    const newStock = [...stock];
+                    newStock[0].url = null;
+                    setStock(newStock);
+                  }}
+                />
+              </div>
               <div className=" d-flex mt-3 gx-5" style={{ gap: 10 }}>
-                {data.map((item, index) => {
+                {stock.slice(1, 5).map((el, idx) => {
                   return (
-                    <div
-                      className=""
-                      key={index}
-                      onClick={() => handleSelect(index)}
-                    >
-                      <img
-                        src={item.src}
-                        className="card-img-top img-fluid"
-                        style={{ height: "100%", width: "100%" }}
-                        alt="EarthToneShirt1"
-                      />
-                    </div>
+                    <UploadProduct2
+                      defaultProductPic={el.url}
+                      productPic={productPic[idx+1]}
+                    
+                      // ถ้า productPic ยังไม่มีค่า จะเป้น null ถ้ากดcancel เป็น undefined
+                      onChange={(e) => {
+                        if (e.target.files[0]) {
+                          const newStock = [...stock];
+                          newStock[el.idx].url = e.target.files[0];
+                          setStock(newStock);
+                          const newProductPic = [...productPic]
+                          newProductPic[idx+1] = e.target.files[0]
+                         setProductPic(newProductPic)  
+                        }
+                      }}
+                      onDelete={() => {
+                        const newStock = [...stock];
+                        newStock[el.idx].url = null;
+                        setStock(newStock);
+                      }}
+                    />
                   );
                 })}
               </div>
@@ -226,6 +329,7 @@ function EditProductPage() {
                   className="form-control mt-3"
                   id="productName"
                   placeholder="product name"
+                  defaultValue={productObj.name}
                   onChange={(e) => setProductName(e.target.value)}
                 />
               </div>
@@ -238,6 +342,7 @@ function EditProductPage() {
                   className="form-control mt-3"
                   id="price"
                   placeholder="price"
+                  defaultValue={productObj.price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
@@ -301,57 +406,103 @@ function EditProductPage() {
               </div>
 
               {/* colorS */}
+
               <div className="row">
                 <div className="col-2">
                   <EditSIzeColor
-                    sizeS={sizeS}
-                    setColorS1={setColorS1}
-                    setColorS2={setColorS2}
-                    setQuantityS1={setQuantityS1}
-                    setQuantityS2={setQuantityS2}
+                    sizeArr={sizeSArr}
+                    size="s"
+                    color1={colorS1}
+                    color2={colorS2}
+                    color3={colorS3}
+                    setColor1={setColorS1}
+                    setColor2={setColorS2}
+                    setColor3={setColorS3}
+                    quantity1={quantityS1}
+                    quantity2={quantityS2}
+                    quantity3={quantityS3}
+                    setQuantity1={setQuantityS1}
+                    setQuantity2={setQuantityS2}
+                    setQuantity3={setQuantityS3}
                   />
                 </div>
 
                 {/* colorM */}
                 <div className="col-2">
                   <EditSIzeColor
-                    sizeM={sizeM}
-                    setColorM1={setColorM1}
-                    setColorM2={setColorM2}
-                    setQuantityM1={setQuantityM1}
-                    setQuantityM2={setQuantityM2}
+                    sizeArr={sizeMArr}
+                    size="m"
+                    color1={colorS1}
+                    color2={colorS2}
+                    color3={colorS3}
+                    setColor1={setColorS1}
+                    setColor2={setColorS2}
+                    setColor3={setColorS3}
+                    quantity1={quantityM1}
+                    quantity2={quantityM2}
+                    quantity3={quantityM3}
+                    setQuantity1={setQuantityM1}
+                    setQuantity2={setQuantityM2}
+                    setQuantity3={setQuantityM3}
                   />
                 </div>
 
                 {/* colorL */}
                 <div className="col-2">
                   <EditSIzeColor
-                    sizeL={sizeL}
-                    setColorL1={setColorL1}
-                    setColorL2={setColorL2}
-                    setQuantityL1={setQuantityL1}
-                    setQuantityL2={setQuantityL2}
+                    sizeArr={sizeLArr}
+                    size="l"
+                    color1={colorS1}
+                    color2={colorS2}
+                    color3={colorS3}
+                    setColor1={setColorS1}
+                    setColor2={setColorS2}
+                    setColor3={setColorS3}
+                    quantity1={quantityL1}
+                    quantity2={quantityL2}
+                    quantity3={quantityL3}
+                    setQuantity1={setQuantityL1}
+                    setQuantity2={setQuantityL2}
+                    setQuantity3={setQuantityL3}
                   />
                 </div>
 
                 {/* colorXL */}
                 <div className="col-2">
                   <EditSIzeColor
-                    sizeXL={sizeXL}
-                    setColorXL1={setColorXL1}
-                    setColorXL2={setColorXL2}
-                    setQuantityXL1={setQuantityXL1}
-                    setQuantityXL2={setQuantityXL2}
+                    sizeArr={sizeXLArr}
+                    size="xl"
+                    color1={colorS1}
+                    color2={colorS2}
+                    color3={colorS3}
+                    setColor1={setColorS1}
+                    setColor2={setColorS2}
+                    setColor3={setColorS3}
+                    quantity1={quantityXL1}
+                    quantity2={quantityXL2}
+                    quantity3={quantityXL3}
+                    setQuantity1={setQuantityXL1}
+                    setQuantity2={setQuantityXL2}
+                    setQuantity3={setQuantityXL3}
                   />
                 </div>
                 {/* colorXXL */}
                 <div className="col-2">
                   <EditSIzeColor
-                    sizeXXL={sizeXXL}
-                    setColorXXL1={setColorXXL1}
-                    setColorXXL2={setColorXXL2}
-                    setQuantityXXL1={setQuantityXXL1}
-                    setQuantityXXL2={setQuantityXXL2}
+                    sizeArr={sizeXXLArr}
+                    size="xxl"
+                    color1={colorS1}
+                    color2={colorS2}
+                    color3={colorS3}
+                    setColor1={setColorS1}
+                    setColor2={setColorS2}
+                    setColor3={setColorS3}
+                    quantity1={quantityXXL1}
+                    quantity2={quantityXXL2}
+                    quantity3={quantityXXL3}
+                    setQuantity1={setQuantityXXL1}
+                    setQuantity2={setQuantityXXL2}
+                    setQuantity3={setQuantityXXL3}
                   />
                 </div>
               </div>
@@ -359,18 +510,19 @@ function EditProductPage() {
               {/* Upload Image SizeGuide */}
               <div className="row">
                 <div className="col-12">
-
-                <UploadSizeGuideImg
-                  sizeGuide={sizeGuide}
-                  // ถ้า sizeGuide ยังไม่มีค่า จะเป้น null ถ้ากดcancel เป็น undefined
-                  onChange={(e) => {
-                    if (e.target.files[0]) {
-                      setSizeGuide(e.target.files[0]);
-                    }
-                  }}
-                  onDelete={() => setSizeGuide(null)}
+                  <UploadSizeGuideImg
+                    isUpdate="true"
+                    sizeGuide={sizeGuide}
+                    defaultSizeGuide={productObj.sizeGuide}
+                    // ถ้า sizeGuide ยังไม่มีค่า จะเป้น null ถ้ากดcancel เป็น undefined
+                    onChange={(e) => {
+                      if (e.target.files[0]) {
+                        setSizeGuide(e.target.files[0]);
+                      }
+                    }}
+                    onDelete={() => setSizeGuide(null)}
                   />
-                  </div>
+                </div>
               </div>
 
               {/* Product Description */}
@@ -383,15 +535,21 @@ function EditProductPage() {
                   className="form-control mt-3"
                   id="productDescription"
                   placeholder="product description "
+                  defaultValue={productObj.productDescription}
                   onChange={(e) => setProductDescription(e.target.value)}
                 />
               </div>
 
               {/* Category and SubCat radio button */}
               <EditCategoty
+                categoryId={productObj.categoryId}
                 category={category}
+                subCategory={subCategory}
+                subCategoryId={subCategoryId}
                 setCategory={setCategory}
                 setSubCategory={setSubCategory}
+                setCategoryId={setCategoryId}
+                setSubCategoryId={setSubCategoryId}
               />
               {/*  */}
 

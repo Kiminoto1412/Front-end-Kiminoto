@@ -3,6 +3,7 @@ import { Carousel } from "react-bootstrap";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "../../config/axios";
+import { AuthContext } from "../../context/AuthContext";
 import { ProductContext } from "../../context/ProductContext";
 import { ErrorContext } from "../../context/ErrorContext";
 
@@ -24,6 +25,10 @@ function ProductBanner() {
 
   const { addToBag } = useContext(ProductContext);
   const { setError } = useContext(ErrorContext);
+  const { user } = useContext(AuthContext);
+
+  const customerId = user.id;
+  console.log(customerId);
 
   useEffect(() => {
     setStatus("pending");
@@ -198,9 +203,9 @@ function ProductBanner() {
               <div className="d-flex justify-content-between">
                 <h5>Kiminoto.Official</h5>
                 <Link
-                  to="/EditProduct/:productId"
+                  to={`/EditProduct/${productId}`}
                   className={`text-dark text-decoration-none ${
-                    location.pathname === "/Product/EditProduct/:productId"
+                    location.pathname === `/Product/EditProduct/${productId}`
                       ? "fw-bold"
                       : ""
                   }`}
@@ -209,10 +214,7 @@ function ProductBanner() {
                     className="fa-solid fa-pencil ms-3"
                     style={{
                       fontSize: 12,
-                      color:
-                        location.pathname === "/Profile/EditAddress/:customerId"
-                          ? "black"
-                          : "grey",
+                      color: "grey",
                     }}
                   ></i>
                 </Link>

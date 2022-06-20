@@ -87,7 +87,7 @@ function ProductCart({
   return (
     <li className="nav-item mb-3">
       <div className="d-flex align-items-center">
-        <button className=" blank-box me-3" onClick={handleButtonInput}>
+        <button className=" blank-box me-3" type="button" onClick={handleButtonInput}>
           {check ? <i class="fa-solid fa-check"></i> : null}
         </button>
         <img

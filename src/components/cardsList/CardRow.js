@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Cards from "./Cards";
 import axios from "../../config/axios";
+import AddCard from "./AddCard";
+import {AuthContext} from "../../context/AuthContext"
 
 function CardRow() {
   const [product, setProduct] = useState([]);
+  const {role} = useContext(AuthContext)
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -19,11 +22,21 @@ function CardRow() {
   }, []);
 
   return (
-    <div className="row mt-3">
-      {product.map((el) => (
-        <Cards key={el.id} productId={el.id} name={el.name} price={el.price} productPic={JSON.parse(el.productPic)[0]} />
-      ))}
-    </div>
+    <>
+      <div className="row mt-3">
+        {product.map((el) => (
+          <Cards
+            key={el.id}
+            productId={el.id}
+            name={el.name}
+            price={el.price}
+            productPic={JSON.parse(el.productPic)[0]}
+          />
+        ))}
+      </div>
+
+      {role === "admin" ? <AddCard /> : null}
+    </>
   );
 }
 
