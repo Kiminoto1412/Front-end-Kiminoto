@@ -41,16 +41,14 @@ function UploadImage({ profilePic, defaultProfilePic, onChange, onDelete }) {
           />
         )}
       </div>
-      {location.pathname.startsWith("/Profile/EditProfile")  ? (
+      {/* {location.pathname.startsWith("/Profile/EditProfile")  ? ( */}
         <input
           type="file"
           className="d-none"
           ref={inputEl}
           onChange={onChange}
         />
-      ) : (
-        <></>
-      )}
+     
     </>
   );
 }

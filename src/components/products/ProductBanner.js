@@ -25,18 +25,20 @@ function ProductBanner() {
 
   const { addToBag } = useContext(ProductContext);
   const { setError } = useContext(ErrorContext);
-  const { user } = useContext(AuthContext);
+  const { user, role } = useContext(AuthContext);
 
-  const customerId = user.id;
-  console.log(customerId);
+  const customerId = user?.id;
+  // console.log(role)
+  // console.log(customerId);
 
   useEffect(() => {
     setStatus("pending");
     const fetchProducts = async () => {
       try {
         const res = await axios.get(`/products/${productId}`);
-        console.log(res.data.product);
-        if (res.data.product) setProduct(res.data.product);
+        // console.log(res.data?.product);
+        // console.log(res.data?.product?.id);
+        if (res.data?.product) setProduct(res.data?.product);
         // console.log(product);
 
         setStatus("resolve");
@@ -46,7 +48,7 @@ function ProductBanner() {
     };
     fetchProducts();
   }, []);
-  // console.log(product);
+  // console.log(product.ProductOptions);
 
   useEffect(() => {
     const fetchColor = async () => {
@@ -70,12 +72,13 @@ function ProductBanner() {
   useEffect(() => {
     const fetchSize = async () => {
       try {
-        const arrayColor = product[0]?.ProductOptions.map((el, idx) => {
+        const arraySize = product[0]?.ProductOptions.map((el, idx) => {
           return el.size;
         });
         // console.log(arrayColor)
-        const uniqueArraySize = [...new Set(arrayColor)];
+        const uniqueArraySize = [...new Set(arraySize)];
         setSizeAr(uniqueArraySize);
+        // console.log(uniqueArraySize)
         // console.log(color);
       } catch (err) {
         console.log(err);
@@ -139,18 +142,30 @@ function ProductBanner() {
   };
 
   const handleSelectColor = (colorHex) => {
-    // console.log(colorHex);
+    console.log(colorHex);
     setColor(colorHex);
     // console.log(color);
 
-    const filteredProduct = product[0]?.ProductOptions.filter((el) => {
-      return el.color === colorHex;
-    });
+    const filteredProduct = product[0]?.ProductOptions.filter(
+      (el) => el.color === colorHex
+    );
+    console.log(filteredProduct);
     setFilteredProductOption(filteredProduct);
   };
 
-  console.log(color);
-  console.log(productOptionId);
+  const handleDeleteProduct = async (e) => {
+    try {
+      e.preventDefault();
+      const res = await axios.delete(`/products/${productId}`);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // console.log(color);
+  // console.log(productOptionId);
+  // console.log(filteredProductOption)
 
   if (status === "pending") {
     return <p>Loading</p>;
@@ -202,22 +217,49 @@ function ProductBanner() {
             <div className="col-4">
               <div className="d-flex justify-content-between">
                 <h5>Kiminoto.Official</h5>
-                <Link
-                  to={`/EditProduct/${productId}`}
-                  className={`text-dark text-decoration-none ${
-                    location.pathname === `/Product/EditProduct/${productId}`
-                      ? "fw-bold"
-                      : ""
-                  }`}
-                >
-                  <i
-                    className="fa-solid fa-pencil ms-3"
-                    style={{
-                      fontSize: 12,
-                      color: "grey",
-                    }}
-                  ></i>
-                </Link>
+                {role === "admin" ? (
+                  <div className="d-flex">
+                    <Link
+                      to={`/EditProduct/${productId}`}
+                      className={`text-dark text-decoration-none ${
+                        location.pathname ===
+                        `/Product/EditProduct/${productId}`
+                          ? "fw-bold"
+                          : ""
+                      }`}
+                    >
+                      <div
+                        className="bg-i-gray-round-hover position-relative"
+                        style={{ width: 30, height: 30 }}
+                      >
+                        <i
+                          className="fa-solid fa-pencil position-absolute top-50 start-50  translate-middle"
+                          style={{
+                            fontSize: 12,
+                            color: "grey",
+                          }}
+                        ></i>
+                      </div>
+                    </Link>
+                    {/* Trash */}
+                    <div
+                      type="button"
+                      className="bg-i-gray-round-hover position-relative"
+                      style={{ width: 30, height: 30 }}
+                      onClick={(e) => handleDeleteProduct(e)}
+                    >
+                      <i
+                        className="fa-solid fa-trash-can position-absolute top-50 start-50  translate-middle"
+                        style={{
+                          fontSize: 12,
+                          color: "grey",
+                        }}
+                      ></i>
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
               <p>Earth tone T-shirts</p>
               <p className="fw-bold">450 THB</p>
@@ -229,12 +271,12 @@ function ProductBanner() {
                     {colorAr?.map((el, idx) => (
                       <>
                         <div
-                          className="d-flex align-items-center me-1 mt-2"
+                          className="d-flex align-items-center  me-1 mt-2"
                           type="button"
                           id={idx}
                           onClick={() => handleSelectColor(el)}
                         >
-                          <div className="border-round-outside">
+                          <div className="border-round-outside bg-button-gray-round-hover">
                             <div
                               className="color-round-inside "
                               style={{ backgroundColor: el }}
@@ -263,7 +305,7 @@ function ProductBanner() {
               </div>
               <div className="mt-2">
                 {filteredProductOption.map((el) => {
-                  console.log(el);
+                  // console.log(el);
                   return (
                     <>
                       <button
@@ -286,7 +328,7 @@ function ProductBanner() {
               </div>
               <div className="mt-3 d-flex align-items-center">
                 <button
-                  className="button-size-grey "
+                  className="button-size-grey bg-button-gray-hover"
                   onClick={(e) => {
                     e.preventDefault();
                     if (quantity > 0) {
@@ -305,7 +347,7 @@ function ProductBanner() {
                 />
 
                 <button
-                  className="button-size-grey"
+                  className="button-size-grey bg-button-gray-hover"
                   onClick={(e) => {
                     e.preventDefault();
                     setQuantity(+quantity + 1);
@@ -317,11 +359,11 @@ function ProductBanner() {
               <div className="d-flex align-items-center mt-3">
                 <button
                   type="submit"
-                  className="btn btn-dark w-50  text-center shadow-none"
+                  className="btn btn-dark w-50  text-center "
                 >
                   ADD TO BAG
                 </button>
-                <button className="button-size-grey ms-2 ">
+                <button className="button-size-grey ms-2 bg-button-gray-hover">
                   <i className="fa-regular fa-heart"></i>
                 </button>
               </div>

@@ -32,7 +32,7 @@ function Profile() {
             )} */}
         
               <UploadImage
-                profilePic={profilePic}
+                profilePic={profilePic }
                 defaultProfilePic={user.profilePic}
                 // ถ้า profilePic ยังไม่มีค่า จะเป้น null ถ้ากดcancel เป็น undefined
                 onChange={(e) => {

@@ -8,18 +8,18 @@ function EditAddress() {
   const location = useLocation();
   let navigate = useNavigate();
 
-  
   const { customerId } = useParams();
 
   const { user } = useContext(AuthContext);
   const { setError } = useContext(ErrorContext);
 
-  const [addressName, setAddressName] = useState(user.addressName);
-  const [address, setAddress] = useState(user.address);
-  const [city, setCity] = useState(user.city);
-  const [district, setDistrict] = useState(user.district);
-  const [postalCode, setPostalCode] = useState(user.postalCode);
-  const [moreDetails, setMoreDetails] = useState(user.moreDetails);
+    const [addressName, setAddressName] = useState(user?.addressName);
+    const [address, setAddress] = useState(user?.address);
+    const [city, setCity] = useState(user?.city);
+    const [district, setDistrict] = useState(user?.district);
+    const [postalCode, setPostalCode] = useState(user?.postalCode);
+    const [moreDetails, setMoreDetails] = useState(user?.moreDetails);
+
   // let locatiobVariable =location.pathname
   // console.log(location.pathname);
 
@@ -28,21 +28,21 @@ function EditAddress() {
       e.preventDefault();
 
       const formData = new FormData();
-      formData.append("addressName",addressName)
-      formData.append("address" , address)
-      formData.append("city" , city)
-      formData.append("district" , district)
-      formData.append("postalCode" , postalCode)
-      formData.append("moreDetails" , moreDetails)
+      formData.append("addressName", addressName);
+      formData.append("address", address);
+      formData.append("city", city);
+      formData.append("district", district);
+      formData.append("postalCode", postalCode);
+      formData.append("moreDetails", moreDetails);
 
-      await axios.patch("/customers/me",formData);
-      navigate(`/Profile/${customerId}`)
+      await axios.patch("/customers/me", formData);
+      navigate(`/Profile/${customerId}`);
     } catch (err) {
       setError(err.response.data.message);
       // console.log(err.response.data)
     }
   };
-
+  // /Profile/EditAddress/1
   return (
     <>
       <form onSubmit={handleSubmitEditAddress}>
@@ -55,7 +55,7 @@ function EditAddress() {
             className="form-control mt-3"
             id="addressName"
             placeholder="address name"
-            defaultValue={user.addressName}
+            defaultValue={user?.addressName}
             onChange={(e) => setAddressName(e.target.value)}
           />
         </div>
@@ -66,7 +66,7 @@ function EditAddress() {
             className="form-control mt-5"
             id="address"
             placeholder="Address  (Room no., Buiding, Street)"
-            defaultValue={user.address}
+            defaultValue={user?.address}
             onChange={(e) => setAddress(e.target.value)}
           />
         </div>
@@ -77,7 +77,7 @@ function EditAddress() {
             className="form-control mt-3"
             id="city"
             placeholder="Province"
-            defaultValue={user.city}
+            defaultValue={user?.city}
             onChange={(e) => setCity(e.target.value)}
           />
         </div>
@@ -87,7 +87,7 @@ function EditAddress() {
             className="form-control mt-5"
             id="district"
             placeholder="District"
-            defaultValue={user.district}
+            defaultValue={user?.district}
             onChange={(e) => setDistrict(e.target.value)}
           />
         </div>
@@ -97,7 +97,7 @@ function EditAddress() {
             className="form-control mt-5"
             id="postalCode"
             placeholder="Postal Code"
-            defaultValue={user.postalCode}
+            defaultValue={user?.postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
           />
         </div>
@@ -107,7 +107,7 @@ function EditAddress() {
             className="form-control mt-3"
             id="moreDetails"
             rows="7"
-            defaultValue={user.moreDetails}
+            defaultValue={user?.moreDetails}
             onChange={(e) => setMoreDetails(e.target.value)}
           ></textarea>
         </div>

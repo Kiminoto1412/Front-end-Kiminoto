@@ -1,42 +1,55 @@
 import { useEffect } from "react";
 
-function EditCategoty({ subCategoryId,category,categoryId,setCategory,setSubCategory, setCategoryId,subCategory, setSubCategoryId }) {
-  
-  console.log(subCategoryId)
+function EditCategoty({
+  category,
+  categoryId,
+  setCategory,
+  setSubCategory,
+  setCategoryId,
+  subCategory,
+  subCategoryId,
+  setSubCategoryId,
+}) {
+  // console.log(subCategoryId);
+  // console.log(subCategory);
   return (
     <>
-      <div className="mt-3" style={{ fontWeight: 500 }}>Category</div>
+      <div className="mt-3" style={{ fontWeight: 500 }}>
+        Category
+      </div>
       <div className="form-check mt-3">
         <input
           className="form-check-input"
           type="radio"
           name="category"
-          checked={category === "shirt" ? true:false}
-          value="shirt"
+          checked={category === "Shirt" ? true : false}
+          value="Shirt"
           id="1"
           onClick={(e) => {
-            setCategory(e.target.value)
-            setCategoryId(e.target.id)}}
+            setCategory(e.target.value);
+            setCategoryId(e.target.id);
+          }}
         />
         <label className="form-check-label" htmlFor="shirt">
           Shirt
         </label>
         {/* nest Shirt */}
-        {category === "shirt" ? (
+        {category === "Shirt" ? (
           <>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="radio"
                 name="subCategoryShirt"
-                value="tShirt"
-                checked={subCategory === "tShirt" ? true:false}
+                value="T-shirt"
+                checked={subCategory === "T-shirt" ? true : false}
                 id="1"
-                onClick={(e) => {setSubCategory(e.target.value)
-                setSubCategoryId(e.target.id)
+                onChange={(e) => {
+                  setSubCategory(e.target.value);
+                  setSubCategoryId(e.target.id);
                 }}
               />
-              <label className="form-check-label" htmlFor="tShirt">
+              <label className="form-check-label" htmlFor="T-shirt">
                 T-shirt
               </label>
             </div>
@@ -45,14 +58,15 @@ function EditCategoty({ subCategoryId,category,categoryId,setCategory,setSubCate
                 className="form-check-input"
                 type="radio"
                 name="subCategoryShirt"
-                value="jacket"
-                checked={subCategory === "jacket" ? true:false}
+                value="Jacket"
+                checked={subCategory === "Jacket" ? true : false}
                 id="2"
-                onClick={(e) => {setSubCategory(e.target.value)
-                  setSubCategoryId(e.target.id)
-                  }}
+                onClick={(e) => {
+                  setSubCategory(e.target.value);
+                  setSubCategoryId(e.target.id);
+                }}
               />
-              <label className="form-check-label" htmlFor="jacket">
+              <label className="form-check-label" htmlFor="Jacket">
                 Jacket
               </label>
             </div>
@@ -65,32 +79,34 @@ function EditCategoty({ subCategoryId,category,categoryId,setCategory,setSubCate
           className="form-check-input"
           type="radio"
           name="category"
-          checked={category === "pants" ? true:false}
-          value="pants"
+          checked={category === "Pants" ? true : false}
+          value="Pants"
           id="2"
           onClick={(e) => {
-            setCategory(e.target.value)
-            setCategoryId(e.target.id)}}
+            setCategory(e.target.value);
+            setCategoryId(e.target.id);
+          }}
         />
-        <label className="form-check-label" htmlFor="pants">
+        <label className="form-check-label" htmlFor="Pants">
           Pants
         </label>
         {/* nest Pants */}
-        {category === "pants" ? (
+        {category === "Pants" ? (
           <>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="radio"
-                value="slacks"
+                value="Slacks"
                 name="subCategoryPants"
-                checked={subCategory === "slacks" ? true:false}
+                checked={subCategory === "Slacks" ? true : false}
                 id="3"
-                onClick={(e) => {setSubCategory(e.target.value)
-                  setSubCategoryId(e.target.id)
-                  }}
+                onClick={(e) => {
+                  setSubCategory(e.target.value);
+                  setSubCategoryId(e.target.id);
+                }}
               />
-              <label className="form-check-label" htmlFor="slacks">
+              <label className="form-check-label" htmlFor="Slacks">
                 Slacks
               </label>
             </div>
@@ -99,14 +115,15 @@ function EditCategoty({ subCategoryId,category,categoryId,setCategory,setSubCate
                 className="form-check-input"
                 type="radio"
                 name="subCategoryPants"
-                value="jeans"
-                checked={subCategory === "jeans" ? true:false}
+                value="Jeans"
+                checked={subCategory === "Jeans" ? true : false}
                 id="4"
-                onClick={(e) => {setSubCategory(e.target.value)
-                  setSubCategoryId(e.target.id)
-                  }}
+                onClick={(e) => {
+                  setSubCategory(e.target.value);
+                  setSubCategoryId(e.target.id);
+                }}
               />
-              <label className="form-check-label" htmlFor="jeans">
+              <label className="form-check-label" htmlFor="Jeans">
                 Jeans
               </label>
             </div>
@@ -119,32 +136,34 @@ function EditCategoty({ subCategoryId,category,categoryId,setCategory,setSubCate
           className="form-check-input"
           type="radio"
           name="category"
-          value="accessories"
-          checked={category === "accessories" ? true:false}
+          value="Accessories"
+          checked={category === "Accessories" ? true : false}
           id="3"
           onClick={(e) => {
-            setCategory(e.target.value)
-            setCategoryId(e.target.id)}}
+            setCategory(e.target.value);
+            setCategoryId(e.target.id);
+          }}
         />
-        <label className="form-check-label" htmlFor="accessories">
+        <label className="form-check-label" htmlFor="Accessories">
           Accessories
         </label>
         {/* nest1 */}
-        {category === "accessories" ? (
+        {category === "Accessories" ? (
           <>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="radio"
                 name="subCategoryAccessories"
-                value="bag"
-                checked={subCategory === "bag" ? true:false}
+                value="Bag"
+                checked={subCategory === "Bag" ? true : false}
                 id="5"
-                onClick={(e) => {setSubCategory(e.target.value)
-                  setSubCategoryId(e.target.id)
-                  }}
+                onClick={(e) => {
+                  setSubCategory(e.target.value);
+                  setSubCategoryId(e.target.id);
+                }}
               />
-              <label className="form-check-label" htmlFor="bag">
+              <label className="form-check-label" htmlFor="Bag">
                 Bag
               </label>
             </div>
@@ -153,14 +172,15 @@ function EditCategoty({ subCategoryId,category,categoryId,setCategory,setSubCate
                 className="form-check-input dis"
                 type="radio"
                 name="subCategoryAccessories"
-                value="braclets"
-                checked={subCategory === "braclets" ? true:false}
+                value="Braclets"
+                checked={subCategory === "Braclets" ? true : false}
                 id="6"
-                onClick={(e) => {setSubCategory(e.target.value)
-                  setSubCategoryId(e.target.id)
-                  }}
+                onClick={(e) => {
+                  setSubCategory(e.target.value);
+                  setSubCategoryId(e.target.id);
+                }}
               />
-              <label className="form-check-label" htmlFor="braclets">
+              <label className="form-check-label" htmlFor="Braclets">
                 Braclets
               </label>
             </div>

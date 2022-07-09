@@ -20,7 +20,7 @@ function EditProductPage() {
   const [productObj, setProductObj] = useState({});
   const [productOptionArr, setProductOptionArr] = useState([]);
 
-  const [productPic, setProductPic] = useState(["","","","",""]);
+  const [productPic, setProductPic] = useState(["", "", "", "", ""]);
 
   //State
   const [productName, setProductName] = useState(productObj.name);
@@ -131,7 +131,20 @@ function EditProductPage() {
           setProductObj(res.data.product[0]);
           setProductOptionArr(res.data.product[0].ProductOptions);
           setArrayPic(JSON.parse(res.data.product[0].productPic));
-
+          setProductName(res.data.product[0].name);
+          setPrice(res.data.product[0].price);
+          setCategoryId(res.data.product[0].productCategoryId);
+          setSubCategoryId(res.data.product[0].productSubCategoryId);
+          setCategory(res.data.product[0].ProductCategory.name);
+          setSubCategory(res.data.product[0].ProductSubCategory.name);
+          setProductDescription(res.data.product[0].productDescription);
+          // console.log(res.data.product[0].ProductOptions)
+          console.log(res.data.product);
+          // console.log(res.data.product[0].sizeGuide)
+          // console.log(res.data.product[0].productCategoryId);
+          // console.log(res.data.product[0].productSubCategoryId);
+          console.log(res.data.product[0].ProductCategory.name);
+          console.log(res.data.product[0].ProductSubCategory.name);
           //setStock โดย create ใหม่แม่งเลย
           setStock(
             JSON.parse(res.data.product[0].productPic).map((item, idx) => {
@@ -144,7 +157,6 @@ function EditProductPage() {
       }
     };
     fetchProduct();
-    
   }, []);
 
   console.log(stock);
@@ -174,8 +186,8 @@ function EditProductPage() {
     // console.log(ArraySizeXXL)
     setSizeXXLArr(ArraySizeXXL);
 
-    setCategory(productObj.ProductCategory?.name.toLowerCase());
-    setSubCategory(productObj.ProductSubCategory?.name.toLowerCase());
+    // setCategory(productObj.ProductCategory?.name.toLowerCase());
+    // setSubCategory(productObj.ProductSubCategory?.name.toLowerCase());
   }, [productObj]);
 
   useEffect(() => {
@@ -225,7 +237,7 @@ function EditProductPage() {
         { size: "xxl", color: colorS3, storage: quantityXXL3 },
       ];
 
-      console.log(stocks)
+      console.log(stocks);
 
       const filteredStocks = stocks.filter((e) => {
         return e.storage !== "";
@@ -242,7 +254,7 @@ function EditProductPage() {
         stocks: filteredStocks,
         categoryId,
         subCategoryId,
-        productId
+        productId,
       });
       // navigate(`/`);
 
@@ -258,8 +270,8 @@ function EditProductPage() {
   // console.log(productPic1)
   // console.log(productObj.ProductCategory.name)
 
-  console.log(productPic)
-  console.log(stock)
+  console.log(productPic);
+  console.log(stock);
   return (
     <>
       {loading && <Spinner />}
@@ -278,9 +290,9 @@ function EditProductPage() {
                       const newStock = [...stock];
                       newStock[0].url = e.target.files[0];
                       setStock(newStock);
-                      const newProductPic = [...productPic]
-                       newProductPic[0] = e.target.files[0]
-                      setProductPic(newProductPic)  
+                      const newProductPic = [...productPic];
+                      newProductPic[0] = e.target.files[0];
+                      setProductPic(newProductPic);
                     }
                   }}
                   onDelete={() => {
@@ -295,17 +307,16 @@ function EditProductPage() {
                   return (
                     <UploadProduct2
                       defaultProductPic={el.url}
-                      productPic={productPic[idx+1]}
-                    
+                      productPic={productPic[idx + 1]}
                       // ถ้า productPic ยังไม่มีค่า จะเป้น null ถ้ากดcancel เป็น undefined
                       onChange={(e) => {
                         if (e.target.files[0]) {
                           const newStock = [...stock];
                           newStock[el.idx].url = e.target.files[0];
                           setStock(newStock);
-                          const newProductPic = [...productPic]
-                          newProductPic[idx+1] = e.target.files[0]
-                         setProductPic(newProductPic)  
+                          const newProductPic = [...productPic];
+                          newProductPic[idx + 1] = e.target.files[0];
+                          setProductPic(newProductPic);
                         }
                       }}
                       onDelete={() => {

@@ -20,8 +20,8 @@ code {
   padding: 0;
 }
 
-.body-container{
-  min-height: 62vh
+.body-container {
+  min-height: 62vh;
 }
 
 /* Button */
@@ -42,7 +42,7 @@ Link:hover {
   color: black;
 }
 
-Link:active{
+Link:active {
   border-bottom: 1px solid black;
 }
 
@@ -100,8 +100,6 @@ input.form-control {
   border-bottom: 1px solid black;
   padding-left: 0;
 }
-
-
 
 textarea.form-control {
   background-color: #f0f0f0;
@@ -201,31 +199,50 @@ input[type="color"]::-webkit-color-swatch {
 
 /* Cart */
 
-.blank-box{
-  border: 2px solid #7B7979;
+.blank-box {
+  border: 2px solid #7b7979;
   border-radius: 3px;
   width: 25px;
   height: 25px;
 }
 
 /* Payment2 */
-.bg-grey-plus-border-round{
+.bg-grey-plus-border-round {
   border: 1px solid #000;
   border-radius: 3px;
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   padding: 1rem;
 }
 
-.border-round-outside{
+.border-round-outside {
   border: 1px solid #000;
   border-radius: 50%;
-  background-color: #F6F6F6;
-  padding:5px
+  background-color: #f6f6f6;
+  padding: 5px;
 }
 
-.color-round-inside{
- 
+.color-round-inside {
   border-radius: 50%;
   width: 20px;
   height: 20px;
+}
+
+.button {
+  transition-duration: 0.4s;
+}
+
+.bg-button-gray-round-hover:hover {
+  background-color: rgb(217, 217, 220);
+  border-radius: 50%;
+}
+
+.bg-button-gray-hover:hover {
+  background-color: rgb(217, 217, 220);
+}
+
+.bg-i-gray-round-hover:hover {
+  background-color: rgb(217, 217, 220);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
 }

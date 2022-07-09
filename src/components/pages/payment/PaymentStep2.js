@@ -150,7 +150,7 @@ function PaymentStep2() {
         <div className="border-top-black mt-5"></div>
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn btn-dark mt-5 w-25 text-center">
-            SELECT THIS LOCATION
+            PAYMENT
           </button>
         </div>
       </form>

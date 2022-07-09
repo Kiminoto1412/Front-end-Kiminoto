@@ -19,6 +19,7 @@ function AuthContextProvider({ children }) {
     const fetchMe = async () => {
       try {
         const token = getAccessToken();
+        // console.log("11111111111111111111111111111111111111")
         if (token) {
           const resMe = await axios.get("/customers/me");
           setUser(resMe.data.customer || resMe.data.admin);
@@ -51,7 +52,7 @@ function AuthContextProvider({ children }) {
     const res = await axios.post("/auth/customers/signup", formData);
     setAccessToken(res.data.token);
     const resMe = await axios.get("/customers/me");
-    setUser(resMe.data.user);
+    setUser(resMe.data.customer);
   };
 
   const login = async (email, password) => {
@@ -60,18 +61,19 @@ function AuthContextProvider({ children }) {
     navigate("/login/customer/success");
     const resMe = await axios.get("/customers/me");
     // const resMe = await axios.get("/");
-    setUser(resMe.data.user);
+    console.log(resMe.data)
+    setUser(resMe.data.customer);
     setRole(resMe.data.role);
   };
 
   const loginAdmin = async (email, password) => {
     const res = await axios.post("/auth/admins/login", { email, password });
     setAccessToken(res.data.token);
-    // console.log(resMe.data.user)
+    // console.log(resMe.data.customer)
     navigate("/login/admin/success");
     // navigate("/");
     const resMe = await axios.get("/customers/me");
-    setUser(resMe.data.user);
+    setUser(resMe.data.customer);
     setRole(resMe.data.role);
     console.log(resMe.data.role);
     console.log(role);

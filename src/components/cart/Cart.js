@@ -70,6 +70,7 @@ function Cart() {
         totalPrice,
         cartItemsIds,
       });
+      // setCartItemArray(null)
       navigate("/PaymentMethod/Step1");
     } catch (err) {
       setError(err.response.data.message);
@@ -163,6 +164,7 @@ function Cart() {
                     ? false
                     : true
                 }
+                data-bs-dismiss="offcanvas"
                 // to="/PaymentMethod/Step1"
               >
                 PROCEED TO CHECKOUT

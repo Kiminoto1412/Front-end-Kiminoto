@@ -135,7 +135,7 @@ function CreateProduct() {
   };
 
   //HandleSubmit
-  const handleSubmitUpdateProduct = async (e) => {
+  const handleSubmitCreateProduct = async (e) => {
     try {
       e.preventDefault();
       //validate input first
@@ -164,6 +164,7 @@ function CreateProduct() {
       });
       // console.log(filteredStocks);
       // console.log("filtereddddddddddd", filteredStocks);
+      // console.log(sizeGuide)
       //end validate
       await createProduct({
         name: productName,
@@ -187,7 +188,7 @@ function CreateProduct() {
     <>
       {loading && <Spinner />}
       <div className="container mt-5">
-        <form onSubmit={handleSubmitUpdateProduct}>
+        <form onSubmit={handleSubmitCreateProduct}>
           <div className="row justify-content-center">
             <div className="col-8 ">
               {/* Upload ProductPic */}
@@ -447,7 +448,10 @@ function CreateProduct() {
               <EditCategoty
                 categoryId={categoryId}
                 category={category}
+                subCategory={subCategory}
+                subCategoryId={subCategoryId}
                 setCategory={setCategory}
+                setSubCategory={setSubCategory}
                 setCategoryId={setCategoryId}
                 setSubCategoryId={setSubCategoryId}
               />
