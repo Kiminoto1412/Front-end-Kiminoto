@@ -75,8 +75,9 @@ function Header() {
                           <li className="nav-item">
                             <Link
                               className="dropdown-item"
-                              to={`/categories/${category.id}`}
-                            >
+                              // to={`/categories/${category.id}`}
+                              to={`/Brand/${category.name}`}
+                              >
                               <p>{category.name}</p>
                             </Link>
                           </li>

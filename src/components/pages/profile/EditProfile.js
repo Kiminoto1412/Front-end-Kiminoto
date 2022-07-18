@@ -39,7 +39,8 @@ function EditProfile() {
       // console.log(formData)
 
       await axios.patch("/customers/me",formData);
-      navigate(`/Profile/${customerId}`)
+      // navigate(`/Profile/${customerId}`)
+      navigate(`/`)
     } catch (err) {
       setError(err.response.data.message);
       // console.log(err.response.data)

@@ -22,6 +22,7 @@ function ProductBanner() {
   const [size, setSize] = useState("");
   const [filteredProductOption, setFilteredProductOption] = useState([]);
   const [productOptionId, setProductOptionId] = useState("");
+  const [addToBagSuccess,setAddToBagSuccess] = useState(false);
 
   const { addToBag } = useContext(ProductContext);
   const { setError } = useContext(ErrorContext);
@@ -114,11 +115,12 @@ function ProductBanner() {
       // console.log(quantity);
       // console.log(product[0].ProductOptions);
 
+      setAddToBagSuccess(true)
       await addToBag({
         productOptionId,
         quantity,
       });
-      // navigate("/")
+      window.location.reload(true)
     } catch (err) {
       setError(err.response.data.message);
     }
@@ -142,7 +144,7 @@ function ProductBanner() {
   };
 
   const handleSelectColor = (colorHex) => {
-    console.log(colorHex);
+    // console.log(colorHex);
     setColor(colorHex);
     // console.log(color);
 
@@ -172,7 +174,7 @@ function ProductBanner() {
   }
   return (
     <>
-      <form onSubmit={handleSubmitAddToBag}>
+      {/* <form onSubmit={handleSubmitAddToBag}> */}
         <div className="container mt-5">
           <div className="row">
             {/* Product Pic Banner */}
@@ -357,9 +359,16 @@ function ProductBanner() {
                 </button>
               </div>
               <div className="d-flex align-items-center mt-3">
-                <button
+                {/* <button
                   type="submit"
                   className="btn btn-dark w-50  text-center "
+                >
+                  ADD TO BAG
+                </button> */}
+                <button
+                  type="button"
+                  className="btn btn-dark w-50  text-center "
+                  onClick={handleSubmitAddToBag}
                 >
                   ADD TO BAG
                 </button>
@@ -367,6 +376,7 @@ function ProductBanner() {
                   <i className="fa-regular fa-heart"></i>
                 </button>
               </div>
+            {addToBagSuccess && <div className="text-success">Your product has been successfully added to your cart.</div>}
               {/* Size Guide */}
               <div className="border-top-grey mt-4">
                 <div className="d-flex justify-content-between align-items-center mt-3 ">
@@ -407,7 +417,7 @@ function ProductBanner() {
             </div>
           </div>
         </div>
-      </form>
+      {/* </form> */}
     </>
   );
 }

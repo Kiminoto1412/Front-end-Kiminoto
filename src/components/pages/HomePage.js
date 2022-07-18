@@ -22,7 +22,7 @@ function HomePage() {
             </div>
             <Link
               className="btn bg-color-light-grey text-brown  position-absolute bottom-0 mb-5"
-              to="/"
+              to="/Brand"
               role="button"
             >
               Shop now
